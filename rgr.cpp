@@ -18,9 +18,9 @@ void vigenere(string text, string key, vector<char>& alphabet)
     string crypt;
     //for (auto i : alphabet)
     //    cout << i << " ";
-    for (auto i : text)
-        if (i != ' ')
-            split.push_back(i);
+    //for (auto i : text)
+    //    if (i != ' ')
+    //        split.push_back(i);
 
     for (int i = 0; i < text.size(); i++)
     {
@@ -58,13 +58,13 @@ int main()
     vector<char> alphabet;
     string text, key;
     cout << "Введите исходное сообщение: ";
-    //getline(cin, text);
-    text = "fortenite ili babage";
-    cout << text << endl;
+    getline(cin, text);
+    //text = "fortenite ili babage";
+    //cout << text << endl;
     cout << "Введите ключ шифрования: ";
-    //getline(cin, key);
-    key = "xd";
-    cout << key << endl;
+    getline(cin, key);
+    //key = "xd";
+    //cout << key << endl;
     for (int i = 65 + 32; i < 91 + 32; i++) alphabet.push_back(char(i));
     //cout << alphabet.size();
     vigenere(text, key, alphabet);
