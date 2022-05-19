@@ -1,6 +1,9 @@
 ﻿#include <iostream>
 // Шифр Вижинера, Шифровка с помощью квадрата Полибия, Двойная табличная перестановка
 //ihuugyugugiy
+
+
+//sogsidoghudsfghdshsdufigh
 int main()
 {
     int a = 5, b = 17;
