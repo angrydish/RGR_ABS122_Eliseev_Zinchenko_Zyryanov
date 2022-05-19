@@ -11,38 +11,45 @@ using namespace std;
 
 void vigenere(string text, string key, vector<char>& alphabet)
 {
+    vector<int> K1;
+    vector<int> K2;
+    vector<int> K3;
     vector<char>split;
+    string crypt;
     //for (auto i : alphabet)
     //    cout << i << " ";
     for (auto i : text)
         if (i != ' ')
             split.push_back(i);
-    //cout << endl;
-    //for (auto i : split)
-    //    cout << i;
-    cout << endl;
-    vector<int> K1;
-    vector<int> K2;
-    vector<int> K3;
-    for (int i = 0; i < split.size(); i++)
+
+    for (int i = 0; i < text.size(); i++)
     {
-        K1.push_back(split[i]);
-        cout << K1[i]<<"\t";
+        for (int j = 0; j < alphabet.size(); j++)
+        {
+            if (text[i] == alphabet[j])
+            {
+                K1.push_back(j);
+            }
+        }
     }
-    cout << endl;
     for (int i = 0, j = 0; i < K1.size(); i++)
     {
-        K2.push_back(key[j]);
+        K2.push_back(key[j] - 97);
         j++;
-        if (j == 6)
+        if (j == key.size())
             j = 0;
+        crypt.push_back(((K1[i] + K2[i]) % 26) + 97);
     }
-    for (auto i : K2)
-        cout << i <<"\t";
-    for (int i = 0; i < K1.size(); i++)
-    {
-        K3.push_back(K1[i]);
-    }
+
+    //for (auto i : K1)
+    //    cout << i << "\t";
+    //cout << endl;
+    //for (auto i : K2)
+    //    cout << i << "\t";
+    //cout << endl;
+    //for (auto i : K3)
+    //    cout << i << "\t";
+    cout << "Зашифрованное сообщение: " << crypt;
 }
 
 int main()
@@ -51,16 +58,14 @@ int main()
     vector<char> alphabet;
     string text, key;
     cout << "Введите исходное сообщение: ";
-    //cin >> text;
-    text = "she is listening";
+    //getline(cin, text);
+    text = "fortenite ili babage";
     cout << text << endl;
     cout << "Введите ключ шифрования: ";
-    //cin >> key;
-    key = "pascal";
+    //getline(cin, key);
+    key = "xd";
     cout << key << endl;
-    for (int i = 65+32; i < 91+32; i++)
-    {
-        alphabet.push_back(char(i));
-    }
+    for (int i = 65 + 32; i < 91 + 32; i++) alphabet.push_back(char(i));
+    //cout << alphabet.size();
     vigenere(text, key, alphabet);
 }
