@@ -136,7 +136,6 @@ string VigenereDecrypt(string text, string key, vector<char>& alphabet)
     return crypt1;
 }
 
-
 int main()
 {
     setlocale(0, "");
