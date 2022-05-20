@@ -84,21 +84,16 @@ string PolybiusSquare(string xd, string key, vector<char>& alphabet)
             }
         }
     }
-    for (int i = 0; i < x.size(); i += 2)
+    for (int i = 0; i < text.size(); i += 2)
         x1.push_back(x[i]);
-    for (int i = 0; i < x.size(); i += 2)
+    for (int i = 0; i < text.size(); i += 2)
         x1.push_back(y[i]);
 
-    for (int i = 1; i < x.size(); i += 2)
+    for (int i = 1; i < text.size(); i += 2)
         y1.push_back(x[i]);
-    for (int i = 1; i < x.size(); i += 2)
+    for (int i = 1; i < text.size(); i += 2)
         y1.push_back(y[i]);
 
-    for (int i = 0;i < x1.size(); i++)
-    {
-        crypt.push_back(key_square[y1[i]][x1[i]]);
-    }
-    return crypt;
     //for (auto i : x)
     //{
     //    cout << i << " ";
@@ -118,6 +113,13 @@ string PolybiusSquare(string xd, string key, vector<char>& alphabet)
     //{
     //    cout << i << " ";
     //}
+
+    for (int i = 0;i < x1.size(); i++)
+    {
+        crypt.push_back(key_square[y1[i]][x1[i]]);
+    }
+    return crypt;
+
 }
 
 string VigenereEncrypt(string text, string key, vector<char>& alphabet)
@@ -217,13 +219,22 @@ int main()
     cout << "Введите ключ шифрования: ";
     getline(cin, key);
     for (int i = 65 + 32; i < 91 + 32; i++) alphabet.push_back(char(i));
-    cout << "Шифр Вижинера:" << endl;
+    cout << endl << "Шифр Вижинера:" << endl;
     slovo = VigenereEncrypt(text, key, alphabet);
     cout << "Зашифрованное сообщение: " << slovo << endl;
     slovo = VigenereDecrypt(VigenereEncrypt(text, key, alphabet), key, alphabet);
     cout << "Расшифрованное сообщение: " << slovo << endl;
 
     cout << endl << "Шифровка с помощью квадрата Полибия:" << endl;
+    if (text.size() % 2 != 0)
+    {
+        cout << "Шифровка квадратом Полибия применима только к выражениям, у которых четное количество символов";
+        while (text.size() % 2 != 0)
+        {
+            cout << endl << "Введите сообщение с четным количеством символов: ";
+            getline(cin, text);
+        }
+    }
     slovo = PolybiusSquare(text, key, alphabet);
     cout << "Зашифрованное сообщение: " << slovo;
 }
