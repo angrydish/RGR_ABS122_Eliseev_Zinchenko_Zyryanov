@@ -9,19 +9,12 @@
 
 using namespace std;
 
-void vigenere(string text, string key, vector<char>& alphabet)
+string VigenereEncrypt(string text, string key, vector<char>& alphabet)
 {
     vector<int> K1;
     vector<int> K2;
-    vector<int> K3;
-    vector<char>split;
-    string crypt;
-    //for (auto i : alphabet)
-    //    cout << i << " ";
-    //for (auto i : text)
-    //    if (i != ' ')
-    //        split.push_back(i);
-
+    vector<int> space;
+    string crypt, crypt1;
     for (int i = 0; i < text.size(); i++)
     {
         for (int j = 0; j < alphabet.size(); j++)
@@ -30,9 +23,10 @@ void vigenere(string text, string key, vector<char>& alphabet)
             {
                 K1.push_back(j);
             }
+
         }
     }
-    for (int i = 0, j = 0; i < K1.size(); i++)
+    for (int i = 0, j = 0, c = 0; i < K1.size(); i++)
     {
         K2.push_back(key[j] - 97);
         j++;
@@ -40,32 +34,32 @@ void vigenere(string text, string key, vector<char>& alphabet)
             j = 0;
         crypt.push_back(((K1[i] + K2[i]) % 26) + 97);
     }
-
-    //for (auto i : K1)
-    //    cout << i << "\t";
-    //cout << endl;
-    //for (auto i : K2)
-    //    cout << i << "\t";
-    //cout << endl;
-    //for (auto i : K3)
-    //    cout << i << "\t";
-    cout << "Зашифрованное сообщение: " << crypt;
+    for(int i = 0, d = 0; i < text.size(); i++)
+    {
+        if (text[i] == ' ')
+        {
+            crypt1.push_back(' '); 
+            d++;
+        }
+        else
+        {
+            crypt1.push_back(crypt[i-d]);
+        }
+    }
+    return crypt1;
 }
+
 
 int main()
 {
     setlocale(0, "");
     vector<char> alphabet;
-    string text, key;
+    string text, key, slovo;
     cout << "Введите исходное сообщение: ";
     getline(cin, text);
-    //text = "fortenite ili babage";
-    //cout << text << endl;
     cout << "Введите ключ шифрования: ";
     getline(cin, key);
-    //key = "xd";
-    //cout << key << endl;
     for (int i = 65 + 32; i < 91 + 32; i++) alphabet.push_back(char(i));
-    //cout << alphabet.size();
-    vigenere(text, key, alphabet);
+    slovo = VigenereEncrypt(text, key, alphabet);
+    cout << "Зашифрованное сообщение: " << slovo;
 }
