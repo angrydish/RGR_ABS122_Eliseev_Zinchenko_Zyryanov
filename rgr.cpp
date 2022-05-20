@@ -22,9 +22,9 @@ void PolybiusSquare(string text, string key, vector<char>& alphabet)
         {'q','r','s','t','u'},
         {'v','w','x','y','z'},
     };
-    for (int i = key.size(); i < alph.size(); i++)
+    for (int j = 0; j < key.size(); j++)
     {
-        for (int j = 0; j < key.size(); j++)
+        for (int i = key.size(); i < alph.size(); i++)
         {
             if ((alph[i] == alph[j]) || ((alph[i] == alph[j]) && alph[i] == 'i') || (alph[i] == 'i' && alph[j] == 'j'))
             {
@@ -53,7 +53,6 @@ void PolybiusSquare(string text, string key, vector<char>& alphabet)
         }
         cout << endl;
     }
-    //cout << endl << alph << " " << alph.size();
 }
 
 string VigenereEncrypt(string text, string key, vector<char>& alphabet)
