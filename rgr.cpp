@@ -9,7 +9,7 @@
 
 using namespace std;
 
-string PolybiusSquare(string xd, string key, vector<char>& alphabet)
+string PolybiusSquare_decrypt(string xd, string key)
 {
     string alph = "abcdefghiklmnopqrstuvwxyz";
     vector<int> x;
@@ -18,6 +18,8 @@ string PolybiusSquare(string xd, string key, vector<char>& alphabet)
     vector<int> y1;
     string crypt;
     string text;
+
+    //формирование строки (ключ + алфавит) для формирования квадрата
     alph = key + alph;
     for (int i = 0; i < xd.size(); i++)
     {
@@ -39,6 +41,7 @@ string PolybiusSquare(string xd, string key, vector<char>& alphabet)
         {'v','w','x','y','z'},
     };
 
+    //формирование правильной строки для квадрата
     for (int j = 0; j < key.size(); j++)
     {
         for (int i = key.size(); i < alph.size(); i++)
@@ -53,6 +56,7 @@ string PolybiusSquare(string xd, string key, vector<char>& alphabet)
             }
         }
     }
+    //формирование квадрата с ключом
     for (int i = 0; i < 5; i++)
     {
         for (int j = 0; j < 5; j++)
@@ -70,11 +74,14 @@ string PolybiusSquare(string xd, string key, vector<char>& alphabet)
     //    }
     //    cout << endl;
     //}
+
+
+    //заполнение координат каждой буквы в соответствующие вектора
     for (int i = 0, ind = 0; i < 5 && ind < text.size(); i++)
     {
         for (int j = 0; j < 5; j++)
         {
-            if (key_square[i][j] == text[ind]) 
+            if (key_square[i][j] == text[ind])
             {
                 x.push_back(j);
                 y.push_back(i);
@@ -84,16 +91,8 @@ string PolybiusSquare(string xd, string key, vector<char>& alphabet)
             }
         }
     }
-    for (int i = 0; i < text.size(); i += 2)
-        x1.push_back(x[i]);
-    for (int i = 0; i < text.size(); i += 2)
-        x1.push_back(y[i]);
 
-    for (int i = 1; i < text.size(); i += 2)
-        y1.push_back(x[i]);
-    for (int i = 1; i < text.size(); i += 2)
-        y1.push_back(y[i]);
-
+    //вывод координат символов в квадрате полибия
     //for (auto i : x)
     //{
     //    cout << i << " ";
@@ -114,12 +113,167 @@ string PolybiusSquare(string xd, string key, vector<char>& alphabet)
     //    cout << i << " ";
     //}
 
+
+    for (int i = 0; i < text.size() / 2; i++)
+    {
+        x1.push_back(x[i]);
+        x1.push_back(y[i]);
+    }
+    for (int i = text.size() / 2; i < text.size(); i++)
+    {
+        y1.push_back(x[i]);
+        y1.push_back(y[i]);
+    }
+    string decrypt;
+    for (int i = 0; i < x1.size(); i++)
+    {
+        decrypt.push_back(key_square[y1[i]][x1[i]]);
+    }
+    return decrypt;
+}
+
+string PolybiusSquare_encrypt(string xd, string key)
+{
+    string alph = "abcdefghiklmnopqrstuvwxyz";
+    vector<int> x;
+    vector<int> y;
+    vector<int> x1;
+    vector<int> y1;
+    string crypt;
+    string text;
+
+    //формирование строки (ключ + алфавит) для формирования квадрата
+    alph = key + alph;
+    for (int i = 0; i < xd.size(); i++)
+    {
+        if (xd[i] != ' ')
+        {
+            text.push_back(xd[i]);
+        }
+        else
+        {
+            continue;
+        }
+    }
+    vector<vector<char>> key_square =
+    {
+        {'a','b','c','d','e'},
+        {'f','g','h','i','k'},
+        {'l','m','n','o','p'},
+        {'q','r','s','t','u'},
+        {'v','w','x','y','z'},
+    };
+
+    //формирование правильной строки для квадрата
+    for (int j = 0; j < key.size(); j++)
+    {
+        for (int i = key.size(); i < alph.size(); i++)
+        {
+            if ((alph[i] == alph[j]) || ((alph[i] == alph[j]) && alph[i] == 'i') || (alph[i] == 'i' && alph[j] == 'j'))
+            {
+                for (int k = i; k < alph.size(); k++)
+                {
+                    alph[k] = alph[k + 1];
+                }
+                i = key.size();
+            }
+        }
+    }
+    //формирование квадрата с ключом
+    for (int i = 0; i < 5; i++)
+    {
+        for (int j = 0; j < 5; j++)
+        {
+            key_square[i][j] = alph[5 * i + j];
+        }
+    }
+
+    //cout << endl << "Квадрат Полибия с ключом:" << endl;
+    //for (int i = 0; i < 5; i++)
+    //{
+    //    for (int j = 0; j < 5; j++)
+    //    {
+    //        cout << key_square[i][j] << " ";
+    //    }
+    //    cout << endl;
+    //}
+
+
+    //заполнение координат каждой буквы в соответствующие вектора
+    for (int i = 0, ind = 0; i < 5 && ind < text.size(); i++)
+    {
+        for (int j = 0; j < 5; j++)
+        {
+            if (key_square[i][j] == text[ind]) 
+            {
+                x.push_back(j);
+                y.push_back(i);
+                i = 0;
+                j = 0;
+                ind += 1;
+            }
+        }
+    }
+
+    //сам процесс шифровки по правилам шифрования с помощью квадрата Полибия
+    for (int i = 0; i < text.size(); i += 2)
+        x1.push_back(x[i]);
+    for (int i = 0; i < text.size(); i += 2)
+        x1.push_back(y[i]);
+
+    for (int i = 1; i < text.size(); i += 2)
+        y1.push_back(x[i]);
+    for (int i = 1; i < text.size(); i += 2)
+        y1.push_back(y[i]);
+
+
+    //вывод координат символов в квадрате полибия
+    //for (auto i : x)
+    //{
+    //    cout << i << " ";
+    //}
+    //cout << endl;
+    //for (auto i : y)
+    //{
+    //    cout << i << " ";
+    //}
+    //cout << endl << endl;
+    //for (auto i : x1)
+    //{
+    //    cout << i << " ";
+    //}
+    //cout << endl;
+    //for (auto i : y1)
+    //{
+    //    cout << i << " ";
+    //}
+
+    //формирование зашифрованного сообщения с помощью квадрата Полибия и соответствующих координат
     for (int i = 0;i < x1.size(); i++)
     {
         crypt.push_back(key_square[y1[i]][x1[i]]);
     }
-    return crypt;
+    
 
+    vector<int>x2;
+    vector<int>y2;
+
+    for (int i = 0; i < text.size() / 2; i++)
+    {
+        x2.push_back(x1[i]);
+        x2.push_back(y1[i]);
+    }
+    for (int i = text.size()/2; i < text.size(); i++)
+    {
+        y2.push_back(x1[i]);
+        y2.push_back(y1[i]);
+    }
+    string decrypt;
+    for (int i = 0; i < x1.size(); i++)
+    {
+        decrypt.push_back(key_square[y2[i]][x2[i]]);
+    }
+    return crypt;
 }
 
 string VigenereEncrypt(string text, string key, vector<char>& alphabet)
@@ -235,6 +389,8 @@ int main()
             getline(cin, text);
         }
     }
-    slovo = PolybiusSquare(text, key, alphabet);
-    cout << "Зашифрованное сообщение: " << slovo;
+    slovo = PolybiusSquare_encrypt(text, key);
+    cout << "Зашифрованное сообщение: " << slovo << endl;
+    slovo = PolybiusSquare_decrypt(slovo, key);
+    cout << "Расшифрованное сообщение: " << slovo << endl;
 }
