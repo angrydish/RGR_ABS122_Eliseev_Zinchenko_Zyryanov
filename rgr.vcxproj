@@ -141,6 +141,9 @@
   <ItemGroup>
     <ClCompile Include="rgr.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ecrypt_decrypt_funcs.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
