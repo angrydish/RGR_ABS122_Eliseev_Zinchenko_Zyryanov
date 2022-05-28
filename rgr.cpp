@@ -253,26 +253,6 @@ string PolybiusSquare_encrypt(string xd, string key)
     {
         crypt.push_back(key_square[y1[i]][x1[i]]);
     }
-    
-
-    vector<int>x2;
-    vector<int>y2;
-
-    for (int i = 0; i < text.size() / 2; i++)
-    {
-        x2.push_back(x1[i]);
-        x2.push_back(y1[i]);
-    }
-    for (int i = text.size()/2; i < text.size(); i++)
-    {
-        y2.push_back(x1[i]);
-        y2.push_back(y1[i]);
-    }
-    string decrypt;
-    for (int i = 0; i < x1.size(); i++)
-    {
-        decrypt.push_back(key_square[y2[i]][x2[i]]);
-    }
     return crypt;
 }
 
