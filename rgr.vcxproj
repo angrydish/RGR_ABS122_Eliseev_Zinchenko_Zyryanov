@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="encrypt_decrypt_funcs.cpp" />
     <ClCompile Include="rgr.cpp" />
   </ItemGroup>
   <ItemGroup>

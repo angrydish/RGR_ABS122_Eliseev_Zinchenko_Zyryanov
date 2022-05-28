@@ -18,6 +18,9 @@
     <ClCompile Include="rgr.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="encrypt_decrypt_funcs.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ecrypt_decrypt_funcs.h">
