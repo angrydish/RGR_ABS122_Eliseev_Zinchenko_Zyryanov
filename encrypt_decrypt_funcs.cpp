@@ -77,7 +77,7 @@ string PolybiusSquare_decrypt(string xd, string key)
                 x.push_back(j);
                 y.push_back(i);
                 i = 0;
-                j = 0;
+                j = -1;
                 ind += 1;
             }
         }

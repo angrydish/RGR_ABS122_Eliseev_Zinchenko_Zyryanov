@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <algorithm>
 using namespace std;
 string PolybiusSquare_decrypt(string xd, string key);
 string PolybiusSquare_encrypt(string xd, string key);
