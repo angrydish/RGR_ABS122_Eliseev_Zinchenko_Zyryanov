@@ -1,5 +1,97 @@
 #include "ecrypt_decrypt_funcs.h"
 
+void DoubleTableSwapEncrypt(string text, string key)
+{
+    string slovo;
+    int m = 0, n = 0;
+    for (int i = 0; i < text.size(); i++)
+    {
+        if (text[i] == ' ') continue;
+        else
+        {
+            slovo += text[i];
+        }
+    }
+    m = (int)sqrt(slovo.size());
+    while (m * n < slovo.size()) n++;
+    
+    if (key.size() != m + n)
+    {
+        cout << "Неверная длина ключа, она должна быть суммой количества строк и столбцов ("<<m+n<<")." << endl;
+        //exit(0);
+    }
+    
+    
+    
+    vector<vector<char>> table(m, vector<char>(n, '\0'));
+    vector<vector<char>> table_swap_stlb(m, vector<char>(n, '\0'));
+    vector<vector<char>> table_swap_strk(m, vector<char>(n, '\0'));
+    vector<int> stolbci;
+    set<int> stlb;
+    vector<int> stroki;
+    set<int>strk;
+    for (int i = 0; i < n; i++)
+    {
+        if (key[i] == '0' || (key[i] - '0') > n)
+        {
+            cout << "Неверно введен ключ: номер столбца больше количества столбцов." << endl;
+            //exit(0);
+        }
+        stlb.insert((key[i] - '0') - 1);
+        stolbci.push_back((key[i]-'0')-1);
+    }
+    for (int i = n; i < n + m; i++)
+    {
+        if (key[i] == '0' || (key[i] - '0') > m)
+        {
+            cout << "Неверно введен ключ: номер строки больше количества строк." << endl;
+            //exit(0);
+        }
+        strk.insert((key[i] - '0') - 1);
+        stroki.push_back((key[i] - '0')-1);
+    }
+    if (strk.size() != m || stlb.size() != n)
+    {
+        cout << "В ключе введены повторяющиеся значения для переставления строк или столбцов." << endl;
+        //exit(0);
+    }
+    
+    if (m * n > slovo.size())
+    {
+        while (m * n > slovo.size())
+        {
+            slovo += '_';
+        }
+    }
+    for (int i = 0, k = 0; i < m; i++)
+    {
+        for (int j = 0; j < n; j++, k++)
+        {
+            table[i][j] = slovo[k];
+            cout << table[i][j] << " ";
+        }
+        cout << endl;
+    }
+    int temp = 0;
+    for (auto z : stolbci)
+    {
+        for (int i = 0; i < m; i++)
+        {
+            table_swap_stlb[i][z] = table[i][temp];
+        }
+        temp++;
+    }
+
+    for (auto i : table_swap_stlb)
+    {
+        for (auto j : i)
+        {
+            cout << j << " ";
+        }
+        cout << endl;
+    }
+}
+
 string PolybiusSquare_decrypt(string xd, string key)
 {
     string alph = "abcdefghiklmnopqrstuvwxyz";
