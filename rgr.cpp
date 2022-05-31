@@ -23,8 +23,13 @@ string Gronsfeld(string text, string key, string encrypted_text, vector<char>&al
         }
         else {
             auto n = find(alphabet.begin(), alphabet.end(), text[i]); 
-            int index = n - alphabet.begin();
-            encrypted_text += alphabet[index + key[i]-'0'];
+            int index = n - alphabet.begin() + key[i] - '0';
+            if (index >= size(alphabet)) {
+                encrypted_text += alphabet[(index - size(alphabet))];
+            }else{
+                encrypted_text += alphabet[index];
+            }
+            
         }
     }
     return encrypted_text;
