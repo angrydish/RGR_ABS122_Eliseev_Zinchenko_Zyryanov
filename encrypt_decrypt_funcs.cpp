@@ -1,8 +1,8 @@
 #include "ecrypt_decrypt_funcs.h"
 
-void DoubleTableSwapEncrypt(string text, string key)
+string DoubleTableSwapEncrypt(const string text, string key)
 {
-    string slovo;
+    string slovo, crypt;
     int m = 0, n = 0;
     for (int i = 0; i < text.size(); i++)
     {
@@ -18,10 +18,8 @@ void DoubleTableSwapEncrypt(string text, string key)
     if (key.size() != m + n)
     {
         cout << "Неверная длина ключа, она должна быть суммой количества строк и столбцов ("<<m+n<<")." << endl;
-        //exit(0);
+        exit(0);
     }
-    
-    
     
     vector<vector<char>> table(m, vector<char>(n, '\0'));
     vector<vector<char>> table_swap_stlb(m, vector<char>(n, '\0'));
@@ -35,7 +33,7 @@ void DoubleTableSwapEncrypt(string text, string key)
         if (key[i] == '0' || (key[i] - '0') > n)
         {
             cout << "Неверно введен ключ: номер столбца больше количества столбцов." << endl;
-            //exit(0);
+            exit(0);
         }
         stlb.insert((key[i] - '0') - 1);
         stolbci.push_back((key[i]-'0')-1);
@@ -45,7 +43,7 @@ void DoubleTableSwapEncrypt(string text, string key)
         if (key[i] == '0' || (key[i] - '0') > m)
         {
             cout << "Неверно введен ключ: номер строки больше количества строк." << endl;
-            //exit(0);
+            exit(0);
         }
         strk.insert((key[i] - '0') - 1);
         stroki.push_back((key[i] - '0')-1);
@@ -53,7 +51,7 @@ void DoubleTableSwapEncrypt(string text, string key)
     if (strk.size() != m || stlb.size() != n)
     {
         cout << "В ключе введены повторяющиеся значения для переставления строк или столбцов." << endl;
-        //exit(0);
+        exit(0);
     }
     
     if (m * n > slovo.size())
@@ -68,9 +66,7 @@ void DoubleTableSwapEncrypt(string text, string key)
         for (int j = 0; j < n; j++, k++)
         {
             table[i][j] = slovo[k];
-            cout << table[i][j] << " ";
         }
-        cout << endl;
     }
     int temp = 0;
     for (auto z : stolbci)
@@ -81,19 +77,128 @@ void DoubleTableSwapEncrypt(string text, string key)
         }
         temp++;
     }
-
-    for (auto i : table_swap_stlb)
+    temp = 0;
+    for (auto z : stroki)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            table_swap_strk[z][j] = table_swap_stlb[temp][j];
+        }
+        temp++;
+    }
+    for (auto i : table_swap_strk)
     {
         for (auto j : i)
         {
-            cout << j << " ";
+            if (j != '_')
+            {
+                crypt += j;
+            }
+            else
+            {
+                crypt += ' ';
+            }
+        }
+    }
+    return crypt;
+}
+
+string DoubleTableSwapDecrypt(const string text, string key)
+{
+    string crypt;
+    int m = 0, n = 0;
+    m = (int)sqrt(text.size());
+    while (m * n < text.size()) n++;
+    vector<vector<char>> table(m, vector<char>(n, '\0'));
+    vector<vector<char>> table_swap_stlb(m, vector<char>(n, '\0'));
+    vector<vector<char>> table_swap_strk(m, vector<char>(n, '\0'));
+    vector<int> stolbci;
+    set<int> stlb;
+    vector<int> stroki;
+    set<int>strk;
+    for (int i = 0; i < n; i++)
+    {
+        if (key[i] == '0' || (key[i] - '0') > n)
+        {
+            cout << "Неверно введен ключ: номер столбца больше количества столбцов." << endl;
+            exit(0);
+        }
+        stlb.insert((key[i] - '0') - 1);
+        stolbci.push_back((key[i] - '0') - 1);
+    }
+    for (int i = n; i < n + m; i++)
+    {
+        if (key[i] == '0' || (key[i] - '0') > m)
+        {
+            cout << "Неверно введен ключ: номер строки больше количества строк." << endl;
+            exit(0);
+        }
+        strk.insert((key[i] - '0') - 1);
+        stroki.push_back((key[i] - '0') - 1);
+    }
+    if (strk.size() != m || stlb.size() != n)
+    {
+        cout << "В ключе введены повторяющиеся значения для переставления строк или столбцов." << endl;
+        exit(0);
+    }
+    for (int i = 0, k = 0; i < m; i++)
+    {
+        for (int j = 0; j < n; j++, k++)
+        {
+            if (text[k] == ' ')
+            {
+                table[i][j] = '_';
+            }
+            else
+            {
+                table[i][j] = text[k];
+            }
+        }
+    }
+     int temp = 0;
+    for (auto z : stolbci)
+    {
+        for (int i = 0; i < m; i++)
+        {
+            table_swap_stlb[i][temp] = table[i][z];
+        }
+        temp++;
+    }
+    temp = 0;
+    for (auto z : stroki)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            table_swap_strk[temp][j] = table_swap_stlb[z][j];
+        }
+        temp++;
+    }
+    for (auto i : table_swap_strk) {
+        for (auto j : i)
+        {
+            if (j == '_') continue;
+            else
+            {
+                crypt += j;
+            }
         }
         cout << endl;
     }
+    return crypt;
 }
 
-string PolybiusSquare_decrypt(string xd, string key)
+string PolybiusSquare_decrypt(const string xd, string key)
 {
+    set<char> unique_key;
+    for (auto i : key)
+    {
+        unique_key.insert(key[i]);
+    }
+    if (unique_key.size() != key.size())
+    {
+        cout << "Каждый символ в ключе должен быть уникален." << ;
+        exit(0);
+    }
     string alph = "abcdefghiklmnopqrstuvwxyz";
     vector<int> x;
     vector<int> y;
@@ -147,19 +252,6 @@ string PolybiusSquare_decrypt(string xd, string key)
             key_square[i][j] = alph[5 * i + j];
         }
     }
-
-    //cout << endl << "Квадрат Полибия с ключом:" << endl;
-    //for (int i = 0; i < 5; i++)
-    //{
-    //    for (int j = 0; j < 5; j++)
-    //    {
-    //        cout << key_square[i][j] << " ";
-    //    }
-    //    cout << endl;
-    //}
-
-
-    //zapolnenie koordinat kajdoi bukvi v sootvetstvuushie vectora
     for (int i = 0, ind = 0; i < 5 && ind < text.size(); i++)
     {
         for (int j = 0; j < 5; j++)
@@ -174,29 +266,6 @@ string PolybiusSquare_decrypt(string xd, string key)
             }
         }
     }
-
-    //vivod coordinat simvolov v kvadrate polibiya
-    //for (auto i : x)
-    //{
-    //    cout << i << " ";
-    //}
-    //cout << endl;
-    //for (auto i : y)
-    //{
-    //    cout << i << " ";
-    //}
-    //cout << endl << endl;
-    //for (auto i : x1)
-    //{
-    //    cout << i << " ";
-    //}
-    //cout << endl;
-    //for (auto i : y1)
-    //{
-    //    cout << i << " ";
-    //}
-
-
     for (int i = 0; i < text.size() / 2; i++)
     {
         x1.push_back(x[i]);
@@ -215,7 +284,7 @@ string PolybiusSquare_decrypt(string xd, string key)
     return decrypt;
 }
 
-string PolybiusSquare_encrypt(string xd, string key)
+string PolybiusSquare_encrypt(const string xd, string key)
 {
     string alph = "abcdefghiklmnopqrstuvwxyz";
     vector<int> x;
@@ -270,18 +339,6 @@ string PolybiusSquare_encrypt(string xd, string key)
             key_square[i][j] = alph[5 * i + j];
         }
     }
-
-    //cout << endl << "Квадрат Полибия с ключом:" << endl;
-    //for (int i = 0; i < 5; i++)
-    //{
-    //    for (int j = 0; j < 5; j++)
-    //    {
-    //        cout << key_square[i][j] << " ";
-    //    }
-    //    cout << endl;
-    //}
-
-
     //zapolnenie koordinat kajdoi bukvi v sootvetstvujushie vectora
     for (int i = 0, ind = 0; i < 5 && ind < text.size(); i++)
     {
@@ -297,7 +354,6 @@ string PolybiusSquare_encrypt(string xd, string key)
             }
         }
     }
-
     //mehanizm shifrovki po pravilam shifrovaniya s pomoshju kvadrata polibiya
     for (int i = 0; i < text.size(); i += 2)
         x1.push_back(x[i]);
@@ -309,28 +365,6 @@ string PolybiusSquare_encrypt(string xd, string key)
     for (int i = 1; i < text.size(); i += 2)
         y1.push_back(y[i]);
 
-
-    //vivod koordinat simvolov v kvadrate
-    //for (auto i : x)
-    //{
-    //    cout << i << " ";
-    //}
-    //cout << endl;
-    //for (auto i : y)
-    //{
-    //    cout << i << " ";
-    //}
-    //cout << endl << endl;
-    //for (auto i : x1)
-    //{
-    //    cout << i << " ";
-    //}
-    //cout << endl;
-    //for (auto i : y1)
-    //{
-    //    cout << i << " ";
-    //}
-
     //formirovanie zashivrovannogo soobshenija s pomoshju kvadrata polibija i sootvetstvujushih koordinat
     for (int i = 0; i < x1.size(); i++)
     {
@@ -339,7 +373,7 @@ string PolybiusSquare_encrypt(string xd, string key)
     return crypt;
 }
 
-string VigenereEncrypt(string text, string key, vector<char>& alphabet)
+string VigenereEncrypt(const string text, string key, vector<char>& alphabet)
 {
     vector<int> K1;
     vector<int> K2;
@@ -379,7 +413,7 @@ string VigenereEncrypt(string text, string key, vector<char>& alphabet)
     return crypt1;
 }
 
-string VigenereDecrypt(string text, string key, vector<char>& alphabet)
+string VigenereDecrypt(const string text, string key, vector<char>& alphabet)
 {
     vector<int> K1;
     vector<int> K2;
