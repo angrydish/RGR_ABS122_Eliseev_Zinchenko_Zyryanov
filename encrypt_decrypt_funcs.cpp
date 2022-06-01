@@ -196,7 +196,7 @@ string PolybiusSquare_decrypt(const string xd, string key)
     }
     if (unique_key.size() != key.size())
     {
-        cout << "Каждый символ в ключе должен быть уникален." << ;
+        cout << "Каждый символ в ключе должен быть уникален." << endl;
         exit(0);
     }
     string alph = "abcdefghiklmnopqrstuvwxyz";
