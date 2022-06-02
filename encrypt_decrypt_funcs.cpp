@@ -1,5 +1,21 @@
 #include "ecrypt_decrypt_funcs.h"
 
+void user_menu()
+{
+    cout << "Добро пожаловать!" << endl << "Выберите шифр:" << endl;
+    for (int i = 0; i < 80; i++) cout << "-";
+    cout << endl;
+    cout << "\tНажмите \"1\" для выбора шифра Вижинера" << endl
+         << "\tНажмите \"2\" для выбора шифра с помощью квадрата Полибия" << endl
+         << "\tНажмите \"3\" для выбора шифра двойной табличной перестановкой" << endl
+         << "\tНажмите \"4\" для выбора шифра Гронсфельда" << endl
+         << "\tНажмите \"5\" для выбора шифра простой табличной перестановкой" << endl
+         << "\tНажмите \"6\" для выбора шифра Плейфера" << endl
+         << "\tНажмите \"0\" для выхода из программы" << endl;
+    for (int i = 0; i < 80; i++) cout << "-";
+    cout << endl;
+}
+
 string DoubleTableSwapEncrypt(const string text, const string key)
 {
     string slovo, crypt;
@@ -17,8 +33,8 @@ string DoubleTableSwapEncrypt(const string text, const string key)
     
     if (key.size() != m + n)
     {
-        cout << "Неверная длина ключа, она должна быть суммой количества строк и столбцов ("<<m+n<<")." << endl;
-        exit(0);
+        //cout << "Неверная длина ключа, она должна быть суммой количества строк и столбцов ("<<m+n<<")." << endl;
+        return "wrong.key.size";
     }
     
     vector<vector<char>> table(m, vector<char>(n, '\0'));
@@ -32,8 +48,7 @@ string DoubleTableSwapEncrypt(const string text, const string key)
     {
         if (key[i] == '0' || (key[i] - '0') > n)
         {
-            cout << "Неверно введен ключ: номер столбца больше количества столбцов." << endl;
-            exit(0);
+            return "wrong.stolbec";
         }
         stlb.insert((key[i] - '0') - 1);
         stolbci.push_back((key[i]-'0')-1);
@@ -42,16 +57,14 @@ string DoubleTableSwapEncrypt(const string text, const string key)
     {
         if (key[i] == '0' || (key[i] - '0') > m)
         {
-            cout << "Неверно введен ключ: номер строки больше количества строк." << endl;
-            exit(0);
+            return "wrong.stroka";
         }
         strk.insert((key[i] - '0') - 1);
         stroki.push_back((key[i] - '0')-1);
     }
     if (strk.size() != m || stlb.size() != n)
     {
-        cout << "В ключе введены повторяющиеся значения для переставления строк или столбцов." << endl;
-        exit(0);
+        return "equal.znacheniya";
     }
     
     if (m * n > slovo.size())
@@ -182,7 +195,6 @@ string DoubleTableSwapDecrypt(const string text, const string key)
                 crypt += j;
             }
         }
-        cout << endl;
     }
     return crypt;
 }
@@ -291,8 +303,7 @@ string PolybiusSquare_encrypt(const string xd, const string key)
     }
     if (unique_key.size() != key.size())
     {
-        cout << "Каждый символ в ключе должен быть уникален." << endl;
-        exit(0);
+        return "-1";
     }
     //formirovanie stroki(key + alphabet) dlya formirovaniya kdavrata
     alph = key + alph;
@@ -306,6 +317,10 @@ string PolybiusSquare_encrypt(const string xd, const string key)
         {
             continue;
         }
+    }
+    if (text.size() % 2 != 0)
+    {
+        return "size.error";
     }
     vector<vector<char>> key_square =
     {
@@ -349,7 +364,7 @@ string PolybiusSquare_encrypt(const string xd, const string key)
                 x.push_back(j);
                 y.push_back(i);
                 i = 0;
-                j = 0;
+                j = -1;
                 ind += 1;
             }
         }
@@ -390,8 +405,6 @@ string VigenereEncrypt(const string text, const string key)
             }
         }
     }
-
-
     for (int i = 0, j = 0; i < K1.size(); i++)
     {
         K2.push_back(key[j] - 97);
