@@ -1,6 +1,6 @@
 #include "ecrypt_decrypt_funcs.h"
 
-string DoubleTableSwapEncrypt(const string text, string key)
+string DoubleTableSwapEncrypt(const string text, const string key)
 {
     string slovo, crypt;
     int m = 0, n = 0;
@@ -103,7 +103,7 @@ string DoubleTableSwapEncrypt(const string text, string key)
     return crypt;
 }
 
-string DoubleTableSwapDecrypt(const string text, string key)
+string DoubleTableSwapDecrypt(const string text, const string key)
 {
     string crypt;
     int m = 0, n = 0;
@@ -187,18 +187,9 @@ string DoubleTableSwapDecrypt(const string text, string key)
     return crypt;
 }
 
-string PolybiusSquare_decrypt(const string xd, string key)
+string PolybiusSquare_decrypt(const string xd, const string key)
 {
-    set<char> unique_key;
-    for (auto i : key)
-    {
-        unique_key.insert(key[i]);
-    }
-    if (unique_key.size() != key.size())
-    {
-        cout << "Каждый символ в ключе должен быть уникален." << endl;
-        exit(0);
-    }
+    
     string alph = "abcdefghiklmnopqrstuvwxyz";
     vector<int> x;
     vector<int> y;
@@ -284,7 +275,7 @@ string PolybiusSquare_decrypt(const string xd, string key)
     return decrypt;
 }
 
-string PolybiusSquare_encrypt(const string xd, string key)
+string PolybiusSquare_encrypt(const string xd, const string key)
 {
     string alph = "abcdefghiklmnopqrstuvwxyz";
     vector<int> x;
@@ -293,7 +284,16 @@ string PolybiusSquare_encrypt(const string xd, string key)
     vector<int> y1;
     string crypt;
     string text;
-
+    set<char> unique_key;
+    for (auto i : key)
+    {
+        unique_key.insert(i);
+    }
+    if (unique_key.size() != key.size())
+    {
+        cout << "Каждый символ в ключе должен быть уникален." << endl;
+        exit(0);
+    }
     //formirovanie stroki(key + alphabet) dlya formirovaniya kdavrata
     alph = key + alph;
     for (int i = 0; i < xd.size(); i++)
@@ -373,11 +373,13 @@ string PolybiusSquare_encrypt(const string xd, string key)
     return crypt;
 }
 
-string VigenereEncrypt(const string text, string key, vector<char>& alphabet)
+string VigenereEncrypt(const string text, const string key)
 {
     vector<int> K1;
     vector<int> K2;
+    vector<char> alphabet;
     string crypt, crypt1;
+    for (int i = 65 + 32; i < 91 + 32; i++) alphabet.push_back(char(i));
     for (int i = 0; i < text.size(); i++)
     {
         for (int j = 0; j < alphabet.size(); j++)
@@ -388,6 +390,8 @@ string VigenereEncrypt(const string text, string key, vector<char>& alphabet)
             }
         }
     }
+
+
     for (int i = 0, j = 0; i < K1.size(); i++)
     {
         K2.push_back(key[j] - 97);
@@ -413,11 +417,13 @@ string VigenereEncrypt(const string text, string key, vector<char>& alphabet)
     return crypt1;
 }
 
-string VigenereDecrypt(const string text, string key, vector<char>& alphabet)
+string VigenereDecrypt(const string text, const string key)
 {
     vector<int> K1;
     vector<int> K2;
+    vector<char> alphabet;
     string crypt, crypt1;
+    for (int i = 65 + 32; i < 91 + 32; i++) alphabet.push_back(char(i));
     for (int i = 0; i < text.size(); i++)
     {
         for (int j = 0; j < alphabet.size(); j++)
