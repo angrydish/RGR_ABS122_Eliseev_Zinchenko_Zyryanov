@@ -6,7 +6,7 @@
 int main()
 {
     ofstream fout;
-    fout.open("rgr.txt");
+    fout.open("output.txt");
     setlocale(0, "");
     string text, key, user_pswd, user_choice = "0";
     int password = 1111;
@@ -74,7 +74,7 @@ int main()
         fout << "Зашифрованное сообщение:" << DoubleTableSwapEncrypt(text, key) << endl;
         fout << "Расшифрованное сообщение:" << DoubleTableSwapDecrypt(DoubleTableSwapEncrypt(text, key), key) << endl;
         fout.close();
-        system("notepad rgr.txt");
+        system("notepad output.txt");
         system("pause");
         exit(0);
     }
