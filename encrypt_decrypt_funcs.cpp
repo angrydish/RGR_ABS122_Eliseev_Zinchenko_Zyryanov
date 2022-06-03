@@ -214,7 +214,7 @@ string PolybiusSquare_decrypt(const string xd, const string key)
     alph = key + alph;
     for (int i = 0; i < xd.size(); i++)
     {
-        if (xd[i] != ' ')
+        if (xd[i] != ' ' && xd[i] != ',' && xd[i] != '.' && xd[i] != '?' && xd[i] != '!' && xd[i] != ':' && xd[i] != '-')
         {
             text.push_back(xd[i]);
         }
@@ -284,7 +284,50 @@ string PolybiusSquare_decrypt(const string xd, const string key)
     {
         decrypt.push_back(key_square[y1[i]][x1[i]]);
     }
-    return decrypt;
+    string crypt1;
+    for (int i = 0, d = 0; i < xd.size(); i++)
+    {
+        if (xd[i] == ' ')
+        {
+            crypt1.push_back(' ');
+            d++;
+        }
+        else if (xd[i] == ',')
+        {
+            crypt1.push_back(',');
+            d++;
+        }
+        else if (xd[i] == '.')
+        {
+            crypt1.push_back('.');
+            d++;
+        }
+        else if (xd[i] == '!')
+        {
+            crypt1.push_back('!');
+            d++;
+        }
+        else if (xd[i] == '?')
+        {
+            crypt1.push_back('?');
+            d++;
+        }
+        else if (xd[i] == ':')
+        {
+            crypt1.push_back(':');
+            d++;
+        }
+        else if (xd[i] == '-')
+        {
+            crypt1.push_back('-');
+            d++;
+        }
+        else
+        {
+            crypt1.push_back(decrypt[i - d]);
+        }
+    }
+    return crypt1;
 }
 
 string PolybiusSquare_encrypt(const string xd, const string key)
@@ -309,7 +352,7 @@ string PolybiusSquare_encrypt(const string xd, const string key)
     alph = key + alph;
     for (int i = 0; i < xd.size(); i++)
     {
-        if (xd[i] != ' ')
+        if (xd[i] != ' ' && xd[i] != ',' && xd[i] != '.' && xd[i] != '?' && xd[i] != '!' && xd[i] != ':' && xd[i] != '-')
         {
             text.push_back(xd[i]);
         }
@@ -385,7 +428,50 @@ string PolybiusSquare_encrypt(const string xd, const string key)
     {
         crypt.push_back(key_square[y1[i]][x1[i]]);
     }
-    return crypt;
+    string crypt1;
+    for (int i = 0, d = 0; i < xd.size(); i++)
+    {
+        if (xd[i] == ' ')
+        {
+            crypt1.push_back(' ');
+            d++;
+        }
+        else if (xd[i] == ',')
+        {
+            crypt1.push_back(',');
+            d++;
+        }
+        else if (xd[i] == '.')
+        {
+            crypt1.push_back('.');
+            d++;
+        }
+        else if (xd[i] == '!')
+        {
+            crypt1.push_back('!');
+            d++;
+        }
+        else if (xd[i] == '?')
+        {
+            crypt1.push_back('?');
+            d++;
+        }
+        else if (xd[i] == ':')
+        {
+            crypt1.push_back(':');
+            d++;
+        }
+        else if (xd[i] == '-')
+        {
+            crypt1.push_back('-');
+            d++;
+        }
+        else
+        {
+            crypt1.push_back(crypt[i - d]);
+        }
+    }
+    return crypt1;
 }
 
 string VigenereEncrypt(const string text, const string key)
@@ -420,6 +506,36 @@ string VigenereEncrypt(const string text, const string key)
         if (text[i] == ' ')
         {
             crypt1.push_back(' ');
+            d++;
+        }
+        else if (text[i] == ',')
+        {
+            crypt1.push_back(',');
+            d++;
+        }
+        else if (text[i] == '.')
+        {
+            crypt1.push_back('.');
+            d++;
+        }
+        else if (text[i] == '!')
+        {
+            crypt1.push_back('!');
+            d++;
+        }
+        else if (text[i] == '?')
+        {
+            crypt1.push_back('?');
+            d++;
+        }
+        else if (text[i] == ':')
+        {
+            crypt1.push_back(':');
+            d++;
+        }
+        else if (text[i] == '-')
+        {
+            crypt1.push_back('-');
             d++;
         }
         else
@@ -462,6 +578,36 @@ string VigenereDecrypt(const string text, const string key)
         if (text[i] == ' ')
         {
             crypt1.push_back(' ');
+            d++;
+        }
+        else if (text[i] == ',')
+        {
+            crypt1.push_back(',');
+            d++;
+        }
+        else if (text[i] == '.')
+        {
+            crypt1.push_back('.');
+            d++;
+        }
+        else if (text[i] == '!')
+        {
+            crypt1.push_back('!');
+            d++;
+        }
+        else if (text[i] == '?')
+        {
+            crypt1.push_back('?');
+            d++;
+        }
+        else if (text[i] == ':')
+        {
+            crypt1.push_back(':');
+            d++;
+        }
+        else if (text[i] == '-')
+        {
+            crypt1.push_back('-');
             d++;
         }
         else
