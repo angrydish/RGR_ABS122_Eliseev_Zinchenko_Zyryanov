@@ -14,9 +14,9 @@ int main()
     cout << "Введите ключ шифровки: ";
     getline(cin, key);
 
-    slovo = Gronsfeld_Encrypt(text, key);
+    /*slovo = Gronsfeld_Encrypt(text, key);
     cout << "Зашифрованное сообщение: " << slovo << endl;
 
     slovo = Gronsfeld_Decrypt(slovo, key);
-    cout << "Расшифрованное сообщение: " << slovo << endl;
+    cout << "Расшифрованное сообщение: " << slovo << endl;*/
 }

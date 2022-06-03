@@ -1,4 +1,4 @@
-#include "ciphers.h"
+﻿#include "ciphers.h"
 string Gronsfeld_Encrypt(string text, string key)
 {
     setlocale(LC_ALL, "Rus");
@@ -15,6 +15,7 @@ string Gronsfeld_Encrypt(string text, string key)
     else if (cod_ascii > 223 && cod_ascii < 256) {
         for (int i = 224; i < 256; i++) alphabet.push_back(char(i));
     }
+
     for (int i = 0; key.size() < (count_if(text.begin(), text.end(), [](int c) { return c != ' '; })); i++) {
         key += key[i];
     }
@@ -40,7 +41,7 @@ string Gronsfeld_Encrypt(string text, string key)
             auto n = find(alphabet.begin(), alphabet.end(), text[i]);
             int index = n - alphabet.begin() + key[i] - '0';
             if (index >= alphabet.size()) {
-                encrypted_text += alphabet[(index - alphabet.size())];//��� ��������
+                encrypted_text += alphabet[(index - alphabet.size())];
             }
             else {
                 encrypted_text += alphabet[index];
@@ -103,4 +104,34 @@ string Gronsfeld_Decrypt(string text, string key) {
     }
 
     return decrypt_text;
+}
+string TablePermutation_Encrypt(string text, string key) {
+
+    string encrypted_text, mama;
+
+    for (int i = 0; i < text.size(); i++) {
+        if (text[i] != ' ') {
+            mama += text[i];
+        }
+    }
+
+    if (mama.size() % key.size() != 0) {
+        return "this won't work";
+
+    for (int j = 0; j < key.size(); j++) {
+        int min_bs = 255;
+        int index = 0;
+        for (int i = 0; i < key.size(); i++) {
+            int cod_ascci = (int)unsigned char(key[i]);
+            if ((cod_ascci > 223 && cod_ascci < 256) || (cod_ascci > 96 && cod_ascci < 123)) {
+                if (cod_ascci <= min_bs) {
+                    min_bs = cod_ascci;
+                    index = i;
+                }
+            }
+        }
+        key[index] = (j + 1) + '0';
+    }
+    sort(mama.begin(), mama.end()); //ого, работает с рус символами
+    return mama;
 }
