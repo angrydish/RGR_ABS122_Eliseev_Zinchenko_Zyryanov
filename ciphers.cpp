@@ -245,3 +245,86 @@ string TablePermutation_Decrypt(string text, string key) {
     }
     return decrypt_text;
 }
+string Atbash_Encrypt(string text) {
+
+    string encrypted_text;
+    vector<int>index_isupper;
+    vector<char>alphabet1;
+    vector<char>alphabet2;
+
+    int cod_ascii = tolower((int)unsigned char(text[0]));
+
+    if (cod_ascii > 96 && cod_ascii < 123) {
+        for (int i = 97; i < 123; i++) alphabet1.push_back(char(i));
+        for (int i = 122; i > 96; i--) alphabet2.push_back(char(i));
+    }
+    else if (cod_ascii > 223 && cod_ascii < 256) {
+        for (int i = 224; i < 256; i++) alphabet1.push_back(char(i));
+        for (int i = 255; i > 223; i--) alphabet2.push_back(char(i));
+    }
+    for (int i = 0; i < text.size(); i++) {
+        int cod = (int)unsigned char(text[i]);
+        if ((cod > 191 && cod < 224) || (cod > 64 && cod < 91)) {
+            index_isupper.push_back(i);
+            text[i] = (char)tolower(text[i]);
+        }
+        else if (isupper(text[i])) {
+            text[i] = (char)tolower(text[i]);
+        }
+    }
+    for (int i = 0; encrypted_text.size() < text.size(); i++) {
+        if (text[i] == ' ') {
+            encrypted_text.insert(i, 1, char(32));
+        }
+        else {
+            auto n = find(alphabet1.begin(), alphabet1.end(), text[i]);
+            int index = n - alphabet1.begin();
+            encrypted_text += alphabet2[index];
+        }
+    }
+    for (auto& it : index_isupper) {
+        encrypted_text[it] = (char)toupper(encrypted_text[it]);
+    }
+    return encrypted_text;
+}
+string Atbash_Decrypt(string text) {
+    string decrypt_text;
+    vector<int>index_isupper;
+    vector<char>alphabet1;
+    vector<char>alphabet2;
+
+    int cod_ascii = tolower((int)unsigned char(text[0]));
+
+    if (cod_ascii > 96 && cod_ascii < 123) {
+        for (int i = 97; i < 123; i++) alphabet2.push_back(char(i));
+        for (int i = 122; i > 96; i--) alphabet1.push_back(char(i));
+    }
+    else if (cod_ascii > 223 && cod_ascii < 256) {
+        for (int i = 224; i < 256; i++) alphabet2.push_back(char(i));
+        for (int i = 255; i > 223; i--) alphabet1.push_back(char(i));
+    }
+    for (int i = 0; i < text.size(); i++) {
+        int cod = (int)unsigned char(text[i]);
+        if ((cod > 191 && cod < 224) || (cod > 64 && cod < 91)) {
+            index_isupper.push_back(i);
+            text[i] = (char)tolower(text[i]);
+        }
+        else if (isupper(text[i])) {
+            text[i] = (char)tolower(text[i]);
+        }
+    }
+    for (int i = 0; decrypt_text.size() < text.size(); i++) {
+        if (text[i] == ' ') {
+            decrypt_text.insert(i, 1, char(32));
+        }
+        else {
+            auto n = find(alphabet1.begin(), alphabet1.end(), text[i]);
+            int index = n - alphabet1.begin();
+            decrypt_text += alphabet2[index];
+        }
+    }
+    for (auto& it : index_isupper) {
+        decrypt_text[it] = (char)toupper(decrypt_text[it]);
+    }
+    return decrypt_text;
+}

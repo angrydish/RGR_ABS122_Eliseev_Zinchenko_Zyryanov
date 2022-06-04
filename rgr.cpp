@@ -1,4 +1,8 @@
 ﻿#include "ciphers.h"
+// 1) Шифр Гронсфельда
+// 2) Табличная шифровка с ключевым словом
+// 3) Шифр Атбаш
+// Zinchenko Matvey
 
 int main()
 {
@@ -12,11 +16,5 @@ int main()
     getline(cin, text);
 
     cout << "Введите ключ шифровки: ";
-    getline(cin, key);
-
-    slovo = TablePermutation_Encrypt(text, key);
-    cout << "Зашифрованное сообщение: " << slovo << endl;
-
-    slovo = TablePermutation_Decrypt(slovo, key);
-    cout << "Расшифрованное сообщение: " << slovo << endl;
+   
 }
