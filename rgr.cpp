@@ -136,8 +136,8 @@ int main()
                     {
                         system("cls");
                         cout << "Шифр Вижинера:"
-                            << endl << "1) Допускаются только латинские символы."
-                            << endl << "2) В ключе не должно быть пробелов." << endl;
+                            << endl << endl << "1) Допускаются только латинские символы."
+                            << endl << "2) В ключе не должно быть пробелов." << endl << endl;
                         //cout << "Введите исходное сообщение:";
                         bool ChoiseToLeave = false;
                         int attempt = 0;
@@ -175,8 +175,23 @@ int main()
                         }
                         if (ChoiseToLeave) break;
                         string to_do;
-                        cout << "Что вы хотите сделать?\n\"1\" - зашифровать\n\"2\" - расшифровать" << endl;
+                        metka1:
+                        cout << endl<<"Что вы хотите сделать?\n\"1\" - зашифровать\n\"2\" - расшифровать" << endl;
                         getline(cin, to_do);
+                        try
+                        {
+                            stoi(to_do);
+                        }
+                        catch (const std::exception&)
+                        {
+                            cout << "Необходимо выбрать число." << endl;
+                            goto metka1;
+                        }
+                        if (to_do == "1" || to_do == "2")
+                        {
+
+                        }
+                        else goto metka1;
                         cout << "Введите ключ шифрования:";
                         getline(cin, key);
                         for (int i = 0; i < key.size(); i++)
@@ -311,7 +326,7 @@ int main()
                         if (ChoiseToLeave) break;
                         string to_do;
                         cout << "Шифровка квадратом Полибия:" << endl;
-                        metka1:
+                        metka2:
                         cout << "Что вы хотите сделать?\n\"1\" - зашифровать\n\"2\" - расшифровать" << endl;
                         getline(cin, to_do);
                         try
@@ -321,13 +336,13 @@ int main()
                         catch (const std::exception&)
                         {
                             cout << "Необходимо выбрать число." << endl;
-                            goto metka1;
+                            goto metka2;
                         }
                         if (to_do == "1" || to_do == "2")
                         {
 
                         }
-                        else goto metka1;
+                        else goto metka2;
                         
                         cout << "Введите ключ шифрования:";
                         getline(cin, key);
@@ -416,9 +431,10 @@ int main()
                     {
                         system("cls");
                         cout << "Шифровка двойной табличной перестановкой:" << endl
-                            << endl << "1) Ключ (последовательность цифр) необходимо вводить в формате M * N, где M - количество строк, N - количество столбцов."
+                            << endl << "1) Ключ (последовательность цифр) необходимо вводить размера M+N, где M - количество строк, N - количество столбцов."
                             << endl << "\nЧисла M и N можно вычислить так: M - целая часть от корня из длины всего сообщения, а N "
-                            << endl << "будет числом, при умножении которого на M получится число большее или равное длине строки." << endl;
+                            << endl << "будет числом, при умножении которого на M получится число большее или равное длине строки."
+                            << endl << "Сначала пишется N цифр, затем еще M цифр." << endl;
                         cout << endl << "Пример: \"paparimskiy\", ключ: \"2341312\" (сначала меняем столбцы, их 4, по паттерну 2341, затем строки по паттерну 312, их 3) " << endl << endl;
                         bool ChoiseToLeave = false;
                         int attempt = 0;
@@ -458,8 +474,23 @@ int main()
                         if (ChoiseToLeave) break;
                         string to_do;
                         cout << "Шифровка двойной табличной перестановкой:" << endl;
+                        metka3:
                         cout << "Что вы хотите сделать?\n\"1\" - зашифровать\n\"2\" - расшифровать" << endl;
                         getline(cin, to_do);
+                        try
+                        {
+                            stoi(to_do);
+                        }
+                        catch (const std::exception&)
+                        {
+                            cout << "Необходимо выбрать число." << endl;
+                            goto metka3;
+                        }
+                        if (to_do == "1" || to_do == "2")
+                        {
+
+                        }
+                        else goto metka3;
                         
                         fin.close();
                         fin.open(file_name_in);
@@ -483,7 +514,7 @@ int main()
                                 error_flag = false;
                                 break;
                             }
-                            cout << "Введенное сообщение:" << text <<" ("<<text.size()<<") - пробелы" << endl;
+                            cout << "Введенное сообщение:\'" << text <<"\' ("<<text.size()<<") минус пробелы" << endl;
                             cout << "Введите ключ шифрования:";
                             getline(cin, key);
                             /*try
