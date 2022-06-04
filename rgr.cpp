@@ -129,6 +129,7 @@ int main()
         fout << "Расшифрованное сообщение: " << Atbash_Encrypt(Atbash_Encrypt(text)) << endl << endl;
 
         fout.close();
+        system("notepad out.txt");
         system("pause");
         exit(0);
     }
