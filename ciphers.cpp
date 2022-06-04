@@ -115,13 +115,21 @@ string TablePermutation_Encrypt(string text, string key) {
         }
     }
 
+    int m = (mama.size() / key.size()) + 1;
+    int n = key.size();
+    vector<vector<char>> table_swap_stlb(m, vector<char>(n, 'z'));
+
     if (mama.size() % key.size() != 0) {
         return "this won't work";
+    }
 
     for (int j = 0; j < key.size(); j++) {
         int min_bs = 255;
         int index = 0;
         for (int i = 0; i < key.size(); i++) {
+            if (key[i] == '0') {
+                return "null cannot be entered in the key";
+            }
             int cod_ascci = (int)unsigned char(key[i]);
             if ((cod_ascci > 223 && cod_ascci < 256) || (cod_ascci > 96 && cod_ascci < 123)) {
                 if (cod_ascci <= min_bs) {
@@ -132,6 +140,106 @@ string TablePermutation_Encrypt(string text, string key) {
         }
         key[index] = (j + 1) + '0';
     }
-    sort(mama.begin(), mama.end()); //ого, работает с рус символами
-    return mama;
+
+    for (int i = 0; i < n; i++) {
+        table_swap_stlb[0][i] = key[i];
+    }
+    for (int i = 0, t = 0; i < n; i++) {
+        for (int j = 1; j < m; j++, t++) {
+            table_swap_stlb[j][i] = text[t];
+        }
+    }
+
+    for (int j = 0, i = 0; j < n; j++, i++) {
+        int min_bs = 255;
+        int index = 0;
+        for (int k = i; k < n; k++) {
+            int cod_ascci = (table_swap_stlb[0][k] - '0');
+            if (cod_ascci <= min_bs) {
+                min_bs = cod_ascci;
+                index = k;
+            }
+        }
+        table_swap_stlb[0][index] = table_swap_stlb[0][j];
+        table_swap_stlb[0][j] = ((min_bs)+'0');
+        for (int s = 1; s < m; s++) {
+            char a = table_swap_stlb[s][index];
+            table_swap_stlb[s][index] = table_swap_stlb[s][j];
+            table_swap_stlb[s][j] = a;
+        }
+    }
+    for (int i = 1; i < m; i++) {
+        for (int j = 0; j < n; j++)
+            encrypted_text += table_swap_stlb[i][j];
+    }
+    return encrypted_text;
+}
+string TablePermutation_Decrypt(string text, string key) {
+
+    string encrypted_text, mama;
+
+    for (int i = 0; i < text.size(); i++) {
+        if (text[i] != ' ') {
+            mama += text[i];
+        }
+    }
+
+    int m = (mama.size() / key.size()) + 1;
+    int n = key.size();
+    vector<vector<char>> table_swap_stlb(m, vector<char>(n, 'z'));
+
+    if (mama.size() % key.size() != 0) {
+        return "this won't work";
+    }
+
+    for (int j = 0; j < key.size(); j++) {
+        int min_bs = 255;
+        int index = 0;
+        for (int i = 0; i < key.size(); i++) {
+            if (key[i] == '0') {
+                return "null cannot be entered in the key";
+            }
+            int cod_ascci = (int)unsigned char(key[i]);
+            if ((cod_ascci > 223 && cod_ascci < 256) || (cod_ascci > 96 && cod_ascci < 123)) {
+                if (cod_ascci <= min_bs) {
+                    min_bs = cod_ascci;
+                    index = i;
+                }
+            }
+        }
+        key[index] = (j + 1) + '0';
+    }
+
+    for (int i = 0; i < n; i++) {
+        table_swap_stlb[0][i] = key[i];
+    }
+    for (int i = 0, t = 0; i < n; i++) {
+        for (int j = 1; j < m; j++, t++) {
+            table_swap_stlb[j][i] = text[t];
+        }
+    }
+
+    for (int j = 0, i = 0; j < n; j++, i++) {
+        int min_bs = 255;
+        int index = 0;
+        for (int k = i; k < n; k++) {
+            int cod_ascci = (table_swap_stlb[0][k] - '0');
+            if (cod_ascci <= min_bs) {
+                min_bs = cod_ascci;
+                index = k;
+            }
+        }
+        table_swap_stlb[0][index] = table_swap_stlb[0][j];
+        table_swap_stlb[0][j] = ((min_bs)+'0');
+        for (int s = 1; s < m; s++) {
+            char a = table_swap_stlb[s][index];
+            table_swap_stlb[s][index] = table_swap_stlb[s][j];
+            table_swap_stlb[s][j] = a;
+        }
+    }
+    for (int i = 1; i < m; i++) {
+        for (int j = 0; j < n; j++)
+            encrypted_text += table_swap_stlb[i][j];
+    }
+    return encrypted_text;
 }
