@@ -4,13 +4,10 @@ void user_menu()
     cout << "Äîáðî ïîæàëîâàòü!" << endl << "Âûáåðèòå øèôð:" << endl;
     for (int i = 0; i < 80; i++) cout << "-";
     cout << endl;
-    cout << "\tÍàæìèòå \"1\" äëÿ âûáîðà øèôðà Âèæèíåðà" << endl
-        << "\tÍàæìèòå \"2\" äëÿ âûáîðà øèôðà ñ ïîìîùüþ êâàäðàòà Ïîëèáèÿ" << endl
-        << "\tÍàæìèòå \"3\" äëÿ âûáîðà øèôðà äâîéíîé òàáëè÷íîé ïåðåñòàíîâêîé" << endl
-        << "\tÍàæìèòå \"4\" äëÿ âûáîðà øèôðà Ãðîíñôåëüäà" << endl
-        << "\tÍàæìèòå \"5\" äëÿ âûáîðà øèôðà ïðîñòîé òàáëè÷íîé ïåðåñòàíîâêîé" << endl
-        << "\tÍàæìèòå \"6\" äëÿ âûáîðà øèôðà Ïëåéôåðà" << endl
-        << "\tÍàæìèòå \"0\" äëÿ âûõîäà èç ïðîãðàììû" << endl;
+    cout << "\tВведите \"1\" Шифр Гронсфельда" << endl;
+    cout << "\tВведите \"2\" Табличная шифровка с ключевым словом" << endl;
+    cout << "\tВведите \"3\" Шифр Атбаш" << endl;
+    cout << "\tВведите \"0\" Закрыть программу" << endl;
     for (int i = 0; i < 80; i++) cout << "-";
     cout << endl;
 }
@@ -219,9 +216,6 @@ string TablePermutation_Decrypt(string text, string key){
         int min_bs = 255;
         int index = 0;
         for (int i = 0; i < key.size(); i++) {
-            if (key[i] == '0') {
-                return "null cannot be entered in the key";
-            }
             int cod_ascci = (int)unsigned char(key[i]);
             if ((cod_ascci > 223 && cod_ascci < 256) || (cod_ascci > 96 && cod_ascci < 123)) {
                 if (cod_ascci <= min_bs) {

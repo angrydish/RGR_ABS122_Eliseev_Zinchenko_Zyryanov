@@ -252,7 +252,8 @@ int main()
                             getline(fin, text);
                             for (int i = 0; i < text.size(); i++)
                             {
-                                if (!((text[i] <= 90 && text[i] >= 65) || (text[i] <= 122 && text[i] >= 97)) && text[i] != ' ')
+                                int cod_ascii = tolower((int)unsigned char(text[i]));
+                                if (!((cod_ascii <= 90 && cod_ascii >= 65) || (cod_ascii <= 122 && cod_ascii >= 97)) && text[i] != ' ')
                                 {
                                     system("cls");
                                     cout << "Программа работает только с русскими или английскими символами" << endl;
@@ -260,7 +261,7 @@ int main()
                                     error_flag = true;
                                     break;
                                 }
-                                else if (!(text[i] <= 255 && text[i] >= 192) && text[i] != ' ') {
+                                else if (!(cod_ascii <= 255 && cod_ascii >= 192) && cod_ascii != ' ') {
                                     system("cls");
                                     cout << "Программа работает только с русскими или английскими символами" << endl;
                                     system("pause");
@@ -355,7 +356,8 @@ int main()
                         }
                         for (int i = 0; i < key.size(); i++)
                         {
-                            if (!(key[i] <= 122 && key[i] >= 97) && key[i] != ' ')
+                            int cod_ascii = tolower((int)unsigned char(text[0]));
+                            if (!(cod_ascii <= 122 && cod_ascii >= 97) && cod_ascii != ' ')
                             {
                                 system("cls");
                                 cout << "ключ должен быть исключительно с нижними регистроми английских символов или русских." << endl;
@@ -363,7 +365,7 @@ int main()
                                 error_flag = true;
                                 break;
                             }
-                            else if (!(key[i] <= 255 && key[i] >= 224)) {
+                            else if (!(cod_ascii <= 255 && cod_ascii >= 224)) {
                                 system("cls");
                                 cout << "ключ должен быть исключительно с нижними регистроми английских символов или русских." << endl;
                                 system("pause");
@@ -378,7 +380,7 @@ int main()
                                 error_flag = true;
                                 break;
                             }
-                            else if (key[i] <= 57 && key[i] >= 48) {
+                            else if (cod_ascii <= 57 && cod_ascii >= 48) {
                                 system("cls");
                                 cout << "В ключе должны быть, либо чисто цифры, либо чисто буквы" << endl;
                                 system("pause");
@@ -403,7 +405,8 @@ int main()
                             getline(fin, text);
                             for (int i = 0; i < text.size(); i++)
                             {
-                                if (!((text[i] <= 90 && text[i] >= 65) || (text[i] <= 122 && text[i] >= 97)) && text[i] != ' ')
+                                int cod_ascii = tolower((int)unsigned char(text[0]));
+                                if (!((cod_ascii <= 90 && cod_ascii >= 65) || (cod_ascii <= 122 && cod_ascii >= 97)) && text[i] != ' ')
                                 {
                                     system("cls");
                                     cout << "Программа работает только с русскими или английскими символами" << endl;
@@ -411,7 +414,7 @@ int main()
                                     error_flag = true;
                                     break;
                                 }
-                                else if (!(text[i] <= 255 && text[i] >= 192) && text[i] != ' ') {
+                                else if (!(cod_ascii <= 255 && cod_ascii >= 192) && text[i] != ' ') {
                                     system("cls");
                                     cout << "Программа работает только с русскими или английскими символами" << endl;
                                     system("pause");
@@ -438,8 +441,8 @@ int main()
                             {
                                 cout << "Введенное сообщение:" << text << endl;
                                 cout << "Введенный ключ:" << key << endl;
-                                cout << "Расшифрованное сообщение:" << TablePermutation_Encrypt(text, key) << endl;
-                                fout << TablePermutation_Encrypt(text, key) << endl;
+                                cout << "Расшифрованное сообщение:" << TablePermutation_Decrypt(text, key) << endl;
+                                fout << TablePermutation_Decrypt(text, key) << endl;
                                 break;
                             }
                             }
@@ -500,7 +503,8 @@ int main()
                             getline(fin, text);
                             for (int i = 0; i < text.size(); i++)
                             {
-                                if (!((text[i] <= 90 && text[i] >= 65) || (text[i] <= 122 && text[i] >= 97)) && text[i] != ' ')
+                                int cod_ascii = tolower((int)unsigned char(text[0]));
+                                if (!((cod_ascii <= 90 && cod_ascii >= 65) || (cod_ascii <= 122 && cod_ascii >= 97)) && (text[i] != ' '))
                                 {
                                     system("cls");
                                     cout << "Программа работает только с русскими или английскими символами" << endl;
@@ -508,7 +512,7 @@ int main()
                                     error_flag = true;
                                     break;
                                 }
-                                else if (!(text[i] <= 255 && text[i] >= 192) && text[i] != ' ') {
+                                else if (!(cod_ascii <= 255 && cod_ascii >= 192) && text[i] != ' ') {
                                     system("cls");
                                     cout << "Программа работает только с русскими или английскими символами" << endl;
                                     system("pause");
