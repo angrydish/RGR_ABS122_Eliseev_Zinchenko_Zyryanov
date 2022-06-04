@@ -1,7 +1,7 @@
 ﻿#include "ciphers.h"
 void user_menu()
 {
-    cout << "Äîáðî ïîæàëîâàòü!" << endl << "Âûáåðèòå øèôð:" << endl;
+    cout << "Добро пожаловать!" << endl << "Выберите шифр:" << endl;
     for (int i = 0; i < 80; i++) cout << "-";
     cout << endl;
     cout << "\tВведите \"1\" Шифр Гронсфельда" << endl;
@@ -156,8 +156,8 @@ string TablePermutation_Encrypt(string text, string key) {
     for (int j = 0; j < key.size(); j++) {
         int cod_ascci = (int)unsigned char(key[j]);
         if (!((cod_ascci > 223 && cod_ascci < 256) || (cod_ascci > 96 && cod_ascci < 123) || (cod_ascci > 64 && cod_ascci < 91))) {
-            unique_key.insert(text[j]);
-            key1 += text[j];
+            unique_key.insert(key[j]);
+            key1 += key[j];
         }
     }
     if (key1.size() != key.size())
@@ -232,8 +232,8 @@ string TablePermutation_Decrypt(string text, string key){
     for (int j = 0; j < key.size(); j++) {
         int cod_ascci = (int)unsigned char(key[j]);
         if (!((cod_ascci > 223 && cod_ascci < 256) || (cod_ascci > 96 && cod_ascci < 123) || (cod_ascci > 64 && cod_ascci < 91))) {
-            unique_key.insert(text[j]);
-            key1 += text[j];
+            unique_key.insert(key[j]);
+            key1 += key[j];
         }
     }
     if (key1.size() != key.size())
@@ -246,7 +246,7 @@ string TablePermutation_Decrypt(string text, string key){
     }
     for (int i = 2, k = 0; i < m; i++) {
         for (int j = 0; j < n; j++, k++) {
-            table_swap_stlb[i][j] = text[k];
+            table_swap_stlb[i][j] = mama[k];
         }
     }
     for (int j = 0, i = 0; j < n; j++, i++) {
