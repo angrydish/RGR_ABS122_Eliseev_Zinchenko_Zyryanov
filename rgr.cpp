@@ -181,7 +181,7 @@ int main()
                     {
                         system("cls");
                         cout << "Шифр Гронсфельда:"
-                            << endl << "1) Допускаются только английскии и русскии буквы."
+                            << endl << "1) Допускаются только английский или русский алфавит."
                             << endl << "2) В ключе не должно быть пробелов." << endl;
                         bool ChoiseToLeave = false;
                         int attempt = 0;
@@ -225,7 +225,7 @@ int main()
                         getline(cin, key);
                         for (int i = 0; i < key.size(); i++)
                         {
-                            if ((key[i] <= 47 && key[i] >= 0) || (key[i] <= 255 && key[i] >= 58) && key[i] != ' ')
+                            if ((key[i] <= 47 && key[i] >= 0) || (key[i] <= 255 && key[i] >= 58) || key[i] == ' ')
                             {
                                 system("cls");
                                 cout << "Ключ должен состоять только из чисел." << endl;
@@ -249,11 +249,12 @@ int main()
                         }
                         while (!fin.eof())
                         {
+                            cout << "Введите текст:";
                             getline(fin, text);
                             for (int i = 0; i < text.size(); i++)
                             {
                                 int cod_ascii = tolower((int)unsigned char(text[i]));
-                                if (!((cod_ascii <= 90 && cod_ascii >= 65) || (cod_ascii <= 122 && cod_ascii >= 97)) && text[i] != ' ')
+                                if (((cod_ascii <= 90 && cod_ascii >= 65) || (cod_ascii <= 122 && cod_ascii >= 97)) && text[i] != ' ')
                                 {
                                     system("cls");
                                     cout << "Программа работает только с русскими или английскими символами" << endl;
@@ -268,11 +269,6 @@ int main()
                                     error_flag = true;
                                     break;
                                 }
-                            }
-                            if (error_flag == true)
-                            {
-                                error_flag = false;
-                                break;
                             }
                             cout << "Шифр Гронсфельда: " << endl;
                             switch (stoi(to_do))

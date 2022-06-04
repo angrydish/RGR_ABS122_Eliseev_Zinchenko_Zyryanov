@@ -119,7 +119,7 @@ string Gronsfeld_Decrypt(string text, string key) {
 }
 string TablePermutation_Encrypt(string text, string key) {
 
-    string encrypted_text, mama;
+    string encrypted_text, mama, key1;
 
     for (int i = 0; i < text.size(); i++) {
         if (text[i] != ' ') {
@@ -155,10 +155,12 @@ string TablePermutation_Encrypt(string text, string key) {
     }
     for (int j = 0; j < key.size(); j++) {
         int cod_ascci = (int)unsigned char(key[j]);
-        if (!((cod_ascci > 223 && cod_ascci < 256) || (cod_ascci > 96 && cod_ascci < 123))) {
+        if (!((cod_ascci > 223 && cod_ascci < 256) || (cod_ascci > 96 && cod_ascci < 123) || (cod_ascci > 64 && cod_ascci < 91))) {
             unique_key.insert(text[j]);
+            key1 += text[j];
+        }
     }
-    if (unique_key.size() != key.size())
+    if (key1.size() != key.size())
     {
         return "-1";
     }
@@ -167,7 +169,7 @@ string TablePermutation_Encrypt(string text, string key) {
     }
     for (int i = 0, t = 0; i < n; i++) {
         for (int j = 1; j < m; j++, t++) {
-            table_swap_stlb[j][i] = text[t];
+            table_swap_stlb[j][i] = mama[t];
         }
     }
 
@@ -196,7 +198,8 @@ string TablePermutation_Encrypt(string text, string key) {
     return encrypted_text;
 }
 string TablePermutation_Decrypt(string text, string key){
-    string decrypt_text, mama;
+    string decrypt_text, mama, key1;
+    set<char>unique_key;
 
     for (int i = 0; i < text.size(); i++) {
         if (text[i] != ' ') {
@@ -226,7 +229,17 @@ string TablePermutation_Decrypt(string text, string key){
         }
         key[index] = (j + 1) + '0';
     }
-
+    for (int j = 0; j < key.size(); j++) {
+        int cod_ascci = (int)unsigned char(key[j]);
+        if (!((cod_ascci > 223 && cod_ascci < 256) || (cod_ascci > 96 && cod_ascci < 123) || (cod_ascci > 64 && cod_ascci < 91))) {
+            unique_key.insert(text[j]);
+            key1 += text[j];
+        }
+    }
+    if (key1.size() != key.size())
+    {
+        return "-1";
+    }
     for (int i = 0; i < n; i++) {
         table_swap_stlb[0][i] = key[i];
         table_swap_stlb[1][i] = (i + 1) + '0';
