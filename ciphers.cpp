@@ -176,7 +176,7 @@ string TablePermutation_Encrypt(string text, string key) {
 }
 string TablePermutation_Decrypt(string text, string key) {
 
-    string encrypted_text, mama;
+    string decrypt_text, mama;
 
     for (int i = 0; i < text.size(); i++) {
         if (text[i] != ' ') {
@@ -184,7 +184,7 @@ string TablePermutation_Decrypt(string text, string key) {
         }
     }
 
-    int m = (mama.size() / key.size()) + 1;
+    int m = (mama.size() / key.size()) + 2;
     int n = key.size();
     vector<vector<char>> table_swap_stlb(m, vector<char>(n, 'z'));
 
@@ -212,34 +212,36 @@ string TablePermutation_Decrypt(string text, string key) {
 
     for (int i = 0; i < n; i++) {
         table_swap_stlb[0][i] = key[i];
+        table_swap_stlb[1][i] = (i + 1) + '0';
     }
-    for (int i = 0, t = 0; i < n; i++) {
-        for (int j = 1; j < m; j++, t++) {
-            table_swap_stlb[j][i] = text[t];
+    for (int i = 2, k = 0; i < m; i++) {
+        for (int j = 0; j < n; j++, k++) {
+            table_swap_stlb[i][j] = text[k];
         }
     }
-
     for (int j = 0, i = 0; j < n; j++, i++) {
-        int min_bs = 255;
+        int key_index = table_swap_stlb[0][j] - '0';
         int index = 0;
+        int tut = 0;
         for (int k = i; k < n; k++) {
-            int cod_ascci = (table_swap_stlb[0][k] - '0');
-            if (cod_ascci <= min_bs) {
-                min_bs = cod_ascci;
+            int cod_ascci = (table_swap_stlb[1][k] - '0');
+            if (cod_ascci == key_index) {
                 index = k;
+                tut = cod_ascci;
             }
         }
-        table_swap_stlb[0][index] = table_swap_stlb[0][j];
-        table_swap_stlb[0][j] = ((min_bs)+'0');
-        for (int s = 1; s < m; s++) {
+        table_swap_stlb[1][index] = table_swap_stlb[1][j];
+        table_swap_stlb[1][j] = (tut + '0');
+        for (int s = 2; s < m; s++) {
             char a = table_swap_stlb[s][index];
             table_swap_stlb[s][index] = table_swap_stlb[s][j];
             table_swap_stlb[s][j] = a;
         }
     }
-    for (int i = 1; i < m; i++) {
-        for (int j = 0; j < n; j++)
-            encrypted_text += table_swap_stlb[i][j];
+    for (int i = 0, t = 0; i < n; i++) {
+        for (int j = 2; j < m; j++, t++) {
+            decrypt_text += table_swap_stlb[j][i];
+        }
     }
-    return encrypted_text;
+    return decrypt_text;
 }
