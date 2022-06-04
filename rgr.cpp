@@ -206,6 +206,7 @@ int main()
                         while (!fin.eof())
                         {
                             getline(fin, text);
+                            if (text == "") continue;
                             for (int i = 0; i < text.size(); i++)
                             {
                                 if (!((text[i] <= 90 && text[i] >= 65) || (text[i] <= 122 && text[i] >= 97)) && text[i] != ' ' && text[i]!=',' && text[i] !='.' && text[i]!='?' && text[i]!='!' && text[i]!=':' && text[i]!='-')
@@ -354,6 +355,7 @@ int main()
                         while (!fin.eof())
                         {
                             getline(fin, text);
+                            if (text == "") continue;
                             for (int i = 0; i < text.size(); i++)
                             {
                                 if (!((text[i] <= 90 && text[i] >= 65) || (text[i] <= 122 && text[i] >= 97)) && text[i] != ' ' && text[i] != ',' && text[i] != '.' && text[i] != '?' && text[i] != '!' && text[i] != ':' && text[i] != '-')
@@ -448,6 +450,7 @@ int main()
                         while (!fin.eof())
                         {
                             getline(fin, text);
+                            if (text == "") continue;
                             for (int i = 0; i < text.size(); i++)
                             {
                                 if (!((text[i] <= 90 && text[i] >= 65) || (text[i] <= 122 && text[i] >= 97)) && text[i] != ' ')
