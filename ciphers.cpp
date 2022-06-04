@@ -1,4 +1,19 @@
 ﻿#include "ciphers.h"
+void user_menu()
+{
+    cout << "Äîáðî ïîæàëîâàòü!" << endl << "Âûáåðèòå øèôð:" << endl;
+    for (int i = 0; i < 80; i++) cout << "-";
+    cout << endl;
+    cout << "\tÍàæìèòå \"1\" äëÿ âûáîðà øèôðà Âèæèíåðà" << endl
+        << "\tÍàæìèòå \"2\" äëÿ âûáîðà øèôðà ñ ïîìîùüþ êâàäðàòà Ïîëèáèÿ" << endl
+        << "\tÍàæìèòå \"3\" äëÿ âûáîðà øèôðà äâîéíîé òàáëè÷íîé ïåðåñòàíîâêîé" << endl
+        << "\tÍàæìèòå \"4\" äëÿ âûáîðà øèôðà Ãðîíñôåëüäà" << endl
+        << "\tÍàæìèòå \"5\" äëÿ âûáîðà øèôðà ïðîñòîé òàáëè÷íîé ïåðåñòàíîâêîé" << endl
+        << "\tÍàæìèòå \"6\" äëÿ âûáîðà øèôðà Ïëåéôåðà" << endl
+        << "\tÍàæìèòå \"0\" äëÿ âûõîäà èç ïðîãðàììû" << endl;
+    for (int i = 0; i < 80; i++) cout << "-";
+    cout << endl;
+}
 string Gronsfeld_Encrypt(string text, string key)
 {
     setlocale(LC_ALL, "Rus");
@@ -118,6 +133,7 @@ string TablePermutation_Encrypt(string text, string key) {
     int m = (mama.size() / key.size()) + 1;
     int n = key.size();
     vector<vector<char>> table_swap_stlb(m, vector<char>(n, 'z'));
+    set<char>unique_key;
 
     if (mama.size() % key.size() != 0) {
         return "this won't work";
@@ -140,7 +156,15 @@ string TablePermutation_Encrypt(string text, string key) {
         }
         key[index] = (j + 1) + '0';
     }
-
+    for (int j = 0; j < key.size(); j++) {
+        int cod_ascci = (int)unsigned char(key[j]);
+        if (!((cod_ascci > 223 && cod_ascci < 256) || (cod_ascci > 96 && cod_ascci < 123))) {
+            unique_key.insert(text[j]);
+    }
+    if (unique_key.size() != key.size())
+    {
+        return "-1";
+    }
     for (int i = 0; i < n; i++) {
         table_swap_stlb[0][i] = key[i];
     }
@@ -174,8 +198,7 @@ string TablePermutation_Encrypt(string text, string key) {
     }
     return encrypted_text;
 }
-string TablePermutation_Decrypt(string text, string key) {
-
+string TablePermutation_Decrypt(string text, string key){
     string decrypt_text, mama;
 
     for (int i = 0; i < text.size(); i++) {
