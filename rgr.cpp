@@ -311,8 +311,24 @@ int main()
                         if (ChoiseToLeave) break;
                         string to_do;
                         cout << "Шифровка квадратом Полибия:" << endl;
+                        metka1:
                         cout << "Что вы хотите сделать?\n\"1\" - зашифровать\n\"2\" - расшифровать" << endl;
                         getline(cin, to_do);
+                        try
+                        {
+                            stoi(to_do);
+                        }
+                        catch (const std::exception&)
+                        {
+                            cout << "Необходимо выбрать число." << endl;
+                            goto metka1;
+                        }
+                        if (to_do == "1" || to_do == "2")
+                        {
+
+                        }
+                        else goto metka1;
+                        
                         cout << "Введите ключ шифрования:";
                         getline(cin, key);
                         if (PolybiusSquare_encrypt(text, key) == "size.error")
@@ -467,10 +483,10 @@ int main()
                                 error_flag = false;
                                 break;
                             }
-                            cout << "Введенное сообщение:" << text << endl;
+                            cout << "Введенное сообщение:" << text <<" ("<<text.size()<<") - пробелы" << endl;
                             cout << "Введите ключ шифрования:";
                             getline(cin, key);
-                            try
+                            /*try
                             {
                                 stoi(key);
                             }
@@ -479,6 +495,15 @@ int main()
                                 cout << "Символы ключа шифрования должны быть цифрами.(либо ключ не влезает в int)" << endl;
                                 system("pause");
                                 break;
+                            }*/
+                            for (int as = 0; as < key.size(); as++)
+                            {
+                                if (key[as] < 49 || key[as]>57)
+                                {
+                                    cout << "Символы ключа шифрования должны быть цифрами." << endl;
+                                    system("pause");
+                                    break;
+                                }
                             }
                             if (DoubleTableSwapEncrypt(text, key) == "wrong.key.size")
                             {

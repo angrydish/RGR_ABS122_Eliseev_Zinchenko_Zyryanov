@@ -410,6 +410,27 @@ string PolybiusSquare_encrypt(const string xd, const string key)
                 j = -1;
                 ind += 1;
             }
+            if (text[ind] == 'j')
+            {
+                int ind_j = 0;
+                int ind_i = 0;
+                for (int z = 0; z < 5; z++)
+                {
+                    for (int c = 0; c < 5; c++)
+                    {
+                        if (key_square[z][c] == 'i')
+                        {
+                            ind_j = c;
+                            ind_i = z;
+                        }
+                    }
+                }
+                x.push_back(ind_j);
+                y.push_back(ind_i);
+                i = 0;
+                j = -1;
+                ind += 1;
+            }
         }
     }
     //mehanizm shifrovki po pravilam shifrovaniya s pomoshju kvadrata polibiya
