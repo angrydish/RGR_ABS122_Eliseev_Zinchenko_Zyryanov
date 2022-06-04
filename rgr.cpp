@@ -143,6 +143,7 @@ int main()
 
         while (true)
         {
+            fin.close();
             cout << "Пароль:";
             getline(cin, user_pswd);
             try
@@ -178,19 +179,15 @@ int main()
                     case 1:
                     {
                         system("cls");
-                        fin.close();
                         cout << "Шифр Гронсфельда:"
                             << endl << "1) Допускаются только английский или русский алфавит."
                             << endl << "2) В ключе не должно быть пробелов." << endl;
+                        fin.close();
+                        fin.open(file_name_in);
                         bool ChoiseToLeave = false;
-                        int attempt = 0;
                         while (stoi(user_pswd) != password)
                         {
-                            if (attempt == 3)
-                            {
-                                cout << "Если вы не хотите использовать это шифрование, напишите \"E_X_I_T\"" << endl;
-                                attempt = 0;
-                            }
+                            cout << "Если вы не хотите использовать это шифрование, напишите \"E_X_I_T\"" << endl;
                             cout << "Введите пароль:";
                             getline(cin, user_pswd);
                             if (user_pswd == "E_X_I_T")
@@ -207,14 +204,12 @@ int main()
                             {
                                 cout << "Символы пароля должны быть цифрами." << endl;
                                 user_pswd = "-1";
-                                attempt++;
                                 continue;
                             }
                             if (stoi(user_pswd) != password)
                             {
                                 cout << "Неверный пароль." << endl;
                             }
-                            attempt++;
                         }
                         if (ChoiseToLeave) break;
                         string to_do;
@@ -248,7 +243,6 @@ int main()
                         }
                         while (!fin.eof())
                        {
-                            fin.open(file_name_in);
                             getline(fin, text);
                             int k = 0;
                             int m = 0;
@@ -303,19 +297,14 @@ int main()
                     {
                         system("cls");
                         cout << "Табличная шифровка с ключевым словом:"
-                            << endl << "1) Шифровка применима только к выражениям, у которых количество букв в тексте делится на количество символов в ключе нацело."
-                            << endl << "2) Символы в ключе обязательно должны быть уникальны." << endl;
+                            << endl << "1) Шифровка применима только к выражениям, у которых количество букв(пробел не учитывается) в тексте делится на количество символов в ключе нацело."
+                            << endl << "2) Ключ принимает в себя, либо уникальный набор чисел(кроме 0), либо набор букв английского или русского алфавита." << endl;
                         fin.close();
                         fin.open(file_name_in);
                         bool ChoiseToLeave = false;
-                        int attempt = 0;
                         while (stoi(user_pswd) != password)
                         {
-                            if (attempt == 3)
-                            {
-                                cout << "Если вы не хотите использовать это шифрование, напишите \"E_X_I_T\"" << endl;
-                                attempt = 0;
-                            }
+                            cout << "Если вы не хотите использовать это шифрование, напишите \"E_X_I_T\"" << endl;
                             cout << "Введите пароль:";
                             getline(cin, user_pswd);
                             if (user_pswd == "E_X_I_T")
@@ -332,14 +321,12 @@ int main()
                             {
                                 cout << "Символы пароля должны быть цифрами." << endl;
                                 user_pswd = "-1";
-                                attempt++;
                                 continue;
                             }
                             if (stoi(user_pswd) != password)
                             {
                                 cout << "Неверный пароль." << endl;
                             }
-                            attempt++;
                         }
                         if (ChoiseToLeave) break;
                         string to_do;
@@ -374,9 +361,9 @@ int main()
                                 error_flag = true;
                                 break;
                             }
-                            else if (cod_ascii <= 57 && cod_ascii >= 48) {
+                            else if (cod_ascii <= 57 && cod_ascii >= 49) {
                                 system("cls");
-                                cout << "В ключе должны быть, либо чисто цифры, либо чисто буквы" << endl;
+                                cout << "В ключе должны быть, либо чисто цифры(кроме 0), либо чисто буквы" << endl;
                                 system("pause");
                                 error_flag = true;
                                 break;
@@ -454,11 +441,7 @@ int main()
                         int attempt = 0;
                         while (stoi(user_pswd) != password)
                         {
-                            if (attempt == 3)
-                            {
-                                cout << "Если вы не хотите использовать это шифрование, напишите \"E_X_I_T\"" << endl;
-                                attempt = 0;
-                            }
+                            cout << "Если вы не хотите использовать это шифрование, напишите \"E_X_I_T\"" << endl;   
                             cout << "Введите пароль:";
                             getline(cin, user_pswd);
                             if (user_pswd == "E_X_I_T")
@@ -475,14 +458,12 @@ int main()
                             {
                                 cout << "Символы пароля должны быть цифрами." << endl;
                                 user_pswd = "-1";
-                                attempt++;
                                 continue;
                             }
                             if (stoi(user_pswd) != password)
                             {
                                 cout << "Неверный пароль." << endl;
                             }
-                            attempt++;
                         }
                         user_pswd = "-1";
                         if (ChoiseToLeave) break;
