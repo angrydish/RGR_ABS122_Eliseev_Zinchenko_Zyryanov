@@ -2,7 +2,11 @@
 // 2) Шифровка с помощью квадрата Полибия
 // 3) Двойная табличная перестановка
 // Nikita Eliseev
-#include "ecrypt_decrypt_funcs.h"
+// 4) Шифр Гронсфельда
+// 5) Табличная шифровка с ключевым словом
+// 6) Шифр Атбаш
+// Zinchenko Matvey
+#include "ecrypt_decrypt_funcs.h";
 int main()
 {
     ifstream fin;
@@ -13,7 +17,8 @@ int main()
     int password = 1111;
     int user_choice_int = -1;
     bool error_flag = false;
-    
+    bool error_flag2 = true;
+
     fin.open(file_name_in);
     if (!fin.is_open())
     {
@@ -31,7 +36,7 @@ int main()
 
     string fast_check;
     cout << "Быстрая проверка?(1 - да, 0 - нет):";
-    OMT:
+OMT:
     getline(cin, fast_check);
 
     try
@@ -77,7 +82,7 @@ int main()
         fout << "Зашифрованное сообщение:" << PolybiusSquare_encrypt(text, key) << endl;
         fout << "Расшифрованное сообщение:" << PolybiusSquare_decrypt(PolybiusSquare_encrypt(text, key), key) << endl << endl;
 
-        key = "41532231";
+        key = "41322341";
         cout << "Шифровка двойной табличной перестановкой:" << endl;
         cout << "Введенное сообщение:" << text << endl;
         cout << "Введенный ключ:" << key << endl;
@@ -89,13 +94,99 @@ int main()
         fout << "Введенный ключ:" << key << endl;
         fout << "Зашифрованное сообщение:" << DoubleTableSwapEncrypt(text, key) << endl;
         fout << "Расшифрованное сообщение:" << DoubleTableSwapDecrypt(DoubleTableSwapEncrypt(text, key), key) << endl;
+
+        text = "ПерРвонАчалЬные ДокАзательства - ЯвляЮтся пЕрвоиСтОчнИками, СведЕний о оБстоятЕльсТвах!?";
+        key = "2456";
+        cout << "Исходное сообщение: " << text << endl;
+        cout << "Ключ: " << key << endl << endl;
+
+        cout << "Шифр Гронсфельда: " << endl;
+        cout << "Введенное сообщение: " << text << endl;
+        cout << "Введенный ключ: " << key << endl;
+        cout << "Зашифрованное сообщение: " << Gronsfeld_Encrypt(text, key) << endl;
+        cout << "Расшифрованное сообщение: " << Gronsfeld_Decrypt(Gronsfeld_Encrypt(text, key), key) << endl << endl;
+
+        fout << "Шифр Гронсфельда: " << endl;
+        fout << "Введенное сообщение: " << text << endl;
+        fout << "Введенный ключ: " << key << endl;
+        fout << "Зашифрованное сообщение: " << Gronsfeld_Encrypt(text, key) << endl;
+        fout << "Расшифрованное сообщение: " << Gronsfeld_Decrypt(Gronsfeld_Encrypt(text, key), key) << endl << endl;
+
+        text = "sMeTaNa V sKvOrEcHnIkE???";
+        key = "567";
+        cout << "Исходное сообщение: " << text << endl;
+        cout << "Ключ: " << key << endl << endl;
+
+        cout << "Шифр Гронсфельда: " << endl;
+        cout << "Введенное сообщение: " << text << endl;
+        cout << "Введенный ключ: " << key << endl;
+        cout << "Зашифрованное сообщение: " << Gronsfeld_Encrypt(text, key) << endl;
+        cout << "Расшифрованное сообщение: " << Gronsfeld_Decrypt(Gronsfeld_Encrypt(text, key), key) << endl << endl;
+
+        fout << "Шифр Гронсфельда: " << endl;
+        fout << "Введенное сообщение: " << text << endl;
+        fout << "Введенный ключ: " << key << endl;
+        fout << "Зашифрованное сообщение: " << Gronsfeld_Encrypt(text, key) << endl;
+        fout << "Расшифрованное сообщение: " << Gronsfeld_Decrypt(Gronsfeld_Encrypt(text, key), key) << endl << endl;
+
+        text = "БроДяГа - паРень Молодой.";
+        key = "пока";
+
+        cout << "Табличная шифровка с ключевым словом: " << endl;
+        cout << "Введенное сообщение: " << text << endl;
+        cout << "Введенный ключ: " << key << endl;
+        cout << "Зашифрованное сообщение:" << TablePermutation_Encrypt(text, key) << endl;
+        cout << "Расшифрованное сообщение:" << TablePermutation_Decrypt(TablePermutation_Encrypt(text, key), key) << endl << endl;
+
+        fout << "Табличная шифровка с ключевым словом: " << endl;
+        fout << "Введенное сообщение: " << text << endl;
+        fout << "Введенный ключ: " << key << endl;
+        fout << "Зашифрованное сообщение: " << TablePermutation_Encrypt(text, key) << endl;
+        fout << "Расшифрованное сообщение: " << TablePermutation_Decrypt(TablePermutation_Encrypt(text, key), key) << endl << endl;
+
+        text = "I wanna eat pizzaa!!!";
+        key = "52413";
+        cout << "Табличная шифровка с ключевым словом: " << endl;
+        cout << "Введенное сообщение: " << text << endl;
+        cout << "Введенный ключ: " << key << endl;
+        cout << "Зашифрованное сообщение:" << TablePermutation_Encrypt(text, key) << endl;
+        cout << "Расшифрованное сообщение:" << TablePermutation_Decrypt(TablePermutation_Encrypt(text, key), key) << endl << endl;
+
+        fout << "Табличная шифровка с ключевым словом: " << endl;
+        fout << "Введенное сообщение: " << text << endl;
+        fout << "Введенный ключ: " << key << endl;
+        fout << "Зашифрованное сообщение: " << TablePermutation_Encrypt(text, key) << endl;
+        fout << "Расшифрованное сообщение: " << TablePermutation_Decrypt(TablePermutation_Encrypt(text, key), key) << endl << endl;
+
+        text = "ВряД ли мНе пОмОгут Эти. КТО ЭТИ?";
+        cout << "Шифр Атбаш: " << endl;
+        cout << "Введенное сообщение: " << text << endl;
+        cout << "Зашифрованное сообщение:" << Atbash_Encrypt(text) << endl;
+        cout << "Расшифрованное сообщение:" << Atbash_Encrypt(Atbash_Encrypt(text)) << endl << endl;
+
+        fout << "Шифр Атбаш: " << endl;
+        fout << "Введенное сообщение: " << text << endl;
+        fout << "Зашифрованное сообщение: " << Atbash_Encrypt(text) << endl;
+        fout << "Расшифрованное сообщение: " << Atbash_Encrypt(Atbash_Encrypt(text)) << endl << endl;
+
+        text = "Lets celebrate, great";
+        cout << "Шифр Атбаш: " << endl;
+        cout << "Введенное сообщение: " << text << endl;
+        cout << "Зашифрованное сообщение:" << Atbash_Encrypt(text) << endl;
+        cout << "Расшифрованное сообщение:" << Atbash_Encrypt(Atbash_Encrypt(text)) << endl << endl;
+
+        fout << "Шифр Атбаш: " << endl;
+        fout << "Введенное сообщение: " << text << endl;
+        fout << "Зашифрованное сообщение: " << Atbash_Encrypt(text) << endl;
+        fout << "Расшифрованное сообщение: " << Atbash_Encrypt(Atbash_Encrypt(text)) << endl << endl;
         fout.close();
+        system("notepad out.txt");
         system("pause");
         exit(0);
     }
     else if (stoi(fast_check) == 0)
     {
-        
+
         while (true)
         {
             cout << "Пароль:";
@@ -175,8 +266,8 @@ int main()
                         }
                         if (ChoiseToLeave) break;
                         string to_do;
-                        metka1:
-                        cout << endl<<"Что вы хотите сделать?\n\"1\" - зашифровать\n\"2\" - расшифровать" << endl;
+                    metka1:
+                        cout << endl << "Что вы хотите сделать?\n\"1\" - зашифровать\n\"2\" - расшифровать" << endl;
                         getline(cin, to_do);
                         try
                         {
@@ -224,7 +315,7 @@ int main()
                             if (text == "") continue;
                             for (int i = 0; i < text.size(); i++)
                             {
-                                if (!((text[i] <= 90 && text[i] >= 65) || (text[i] <= 122 && text[i] >= 97)) && text[i] != ' ' && text[i]!=',' && text[i] !='.' && text[i]!='?' && text[i]!='!' && text[i]!=':' && text[i]!='-')
+                                if (!((text[i] <= 90 && text[i] >= 65) || (text[i] <= 122 && text[i] >= 97)) && text[i] != ' ' && text[i] != ',' && text[i] != '.' && text[i] != '?' && text[i] != '!' && text[i] != ':' && text[i] != '-')
                                 {
                                     system("cls");
                                     cout << "Программа работает только с латинскими символами." << endl;
@@ -238,7 +329,7 @@ int main()
                                 error_flag = false;
                                 break;
                             }
-                            
+
                             for (int i = 0; i < text.size(); i++)// заглавные в строчые
                             {
                                 if (65 <= text[i] && text[i] <= 90)
@@ -261,7 +352,7 @@ int main()
                                 cout << "Введенное сообщение:" << text << endl;
                                 cout << "Введенный ключ:" << key << endl;
                                 cout << "Зашифрованное сообщение:" << VigenereEncrypt(text, key) << endl;
-                                fout<< VigenereEncrypt(text, key) << endl;
+                                fout << VigenereEncrypt(text, key) << endl;
                                 break;
                             }
                             case 2:
@@ -326,7 +417,7 @@ int main()
                         if (ChoiseToLeave) break;
                         string to_do;
                         cout << "Шифровка квадратом Полибия:" << endl;
-                        metka2:
+                    metka2:
                         cout << "Что вы хотите сделать?\n\"1\" - зашифровать\n\"2\" - расшифровать" << endl;
                         getline(cin, to_do);
                         try
@@ -343,7 +434,7 @@ int main()
 
                         }
                         else goto metka2;
-                        
+
                         cout << "Введите ключ шифрования:";
                         getline(cin, key);
                         if (PolybiusSquare_encrypt(text, key) == "size.error")
@@ -382,7 +473,7 @@ int main()
                             system("pause");
                             break;
                         }
-                        
+
                         while (!fin.eof())
                         {
                             getline(fin, text);
@@ -410,7 +501,7 @@ int main()
                                 cout << "Введенное сообщение:" << text << endl;
                                 cout << "Введенный ключ:" << key << endl;
                                 cout << "Зашифрованное сообщение:" << PolybiusSquare_encrypt(text, key) << endl;
-                                fout <<  PolybiusSquare_encrypt(text, key) << endl;
+                                fout << PolybiusSquare_encrypt(text, key) << endl;
                                 break;
                             }
                             case 2:
@@ -474,7 +565,7 @@ int main()
                         if (ChoiseToLeave) break;
                         string to_do;
                         cout << "Шифровка двойной табличной перестановкой:" << endl;
-                        metka3:
+                    metka3:
                         cout << "Что вы хотите сделать?\n\"1\" - зашифровать\n\"2\" - расшифровать" << endl;
                         getline(cin, to_do);
                         try
@@ -491,7 +582,7 @@ int main()
 
                         }
                         else goto metka3;
-                        
+
                         fin.close();
                         fin.open(file_name_in);
                         while (!fin.eof())
@@ -500,11 +591,9 @@ int main()
                             if (text == "") continue;
                             for (int i = 0; i < text.size(); i++)
                             {
-                                if (!((text[i] <= 90 && text[i] >= 65) || (text[i] <= 122 && text[i] >= 97)) && text[i] != ' ')
+                                if (text[i] < 32 || text[i]>127)
                                 {
-                                    system("cls");
-                                    cout << "Программа работает только с латинскими символами." << endl;
-                                    system("pause");
+                                    cout << "В строке есть русские символы." << endl;
                                     error_flag = true;
                                     break;
                                 }
@@ -512,21 +601,11 @@ int main()
                             if (error_flag == true)
                             {
                                 error_flag = false;
-                                break;
+                                continue;
                             }
-                            cout << "Введенное сообщение:\'" << text <<"\' ("<<text.size()<<") минус пробелы" << endl;
+                            cout << "Введенное сообщение:\'" << text << "\' (" << text.size() << ") минус пробелы" << endl;
                             cout << "Введите ключ шифрования:";
                             getline(cin, key);
-                            /*try
-                            {
-                                stoi(key);
-                            }
-                            catch (const std::exception&)
-                            {
-                                cout << "Символы ключа шифрования должны быть цифрами.(либо ключ не влезает в int)" << endl;
-                                system("pause");
-                                break;
-                            }*/
                             for (int as = 0; as < key.size(); as++)
                             {
                                 if (key[as] < 49 || key[as]>57)
@@ -566,7 +645,7 @@ int main()
                             {
                                 //cout << "Введенное сообщение:" << text << endl;
                                 cout << "Введенный ключ:" << key << endl;
-                                cout << "Зашифрованное сообщение:" << DoubleTableSwapEncrypt(text, key) << endl;
+                                cout << "Зашифрованное сообщение:\"" << DoubleTableSwapEncrypt(text, key) << "\"" << endl;
                                 fout << DoubleTableSwapEncrypt(text, key) << endl;
                                 break;
                             }
@@ -586,19 +665,439 @@ int main()
                     }
                     case 4:
                     {
-                        cout << "В разработке другим студентом." << endl;
+                        system("cls");
+                        cout << "Шифр Гронсфельда:"
+                            << endl << "1) Допускаются только английский или русский алфавит."
+                            << endl << "2) В ключе не должно быть пробелов." << endl;
+                        fin.close();
+                        fin.open(file_name_in);
+                        bool ChoiseToLeave = false;
+                        while (stoi(user_pswd) != password)
+                        {
+                            cout << "Если вы не хотите использовать это шифрование, напишите \"E_X_I_T\"" << endl;
+                            cout << "Введите пароль:";
+                            getline(cin, user_pswd);
+                            if (user_pswd == "E_X_I_T")
+                            {
+                                user_pswd = "-1";
+                                ChoiseToLeave = true;
+                                break;
+                            }
+                            try
+                            {
+                                stoi(user_pswd);
+                            }
+                            catch (const std::exception&)
+                            {
+                                cout << "Символы пароля должны быть цифрами." << endl;
+                                user_pswd = "-1";
+                                continue;
+                            }
+                            if (stoi(user_pswd) != password)
+                            {
+                                cout << "Неверный пароль." << endl;
+                            }
+                        }
+                        if (ChoiseToLeave) break;
+                        string to_do;
+                        cout << "Что вы хотите сделать?\n\"1\" - зашифровать\n\"2\" - расшифровать" << endl;
+                        getline(cin, to_do);
+                        cout << "Введите ключ шифрования:";
+                        getline(cin, key);
+                        for (int i = 0; i < key.size(); i++)
+                        {
+                            if (!(key[i] <= 58 && key[i] >= 47) && key[i] != ' ')
+                            {
+                                system("cls");
+                                cout << "Ключ должен состоять только из чисел." << endl;
+                                system("pause");
+                                error_flag = true;
+                                break;
+                            }
+                            else if (key[i] == ' ')
+                            {
+                                system("cls");
+                                cout << "В ключе не должно быть пробелов" << endl;
+                                system("pause");
+                                error_flag = true;
+                                break;
+                            }
+                        }
+                        if (error_flag == true)
+                        {
+                            error_flag = false;
+                            break;
+                        }
+                        while (!fin.eof())
+                        {
+                            getline(fin, text);
+                            if (text == "") continue;
+                            error_flag2 = true;
+                            while (true) {
+                                int cod_ascii = (int)unsigned char(text[0]);
+                                if (!((cod_ascii <= 90 && cod_ascii >= 65) || (cod_ascii <= 122 && cod_ascii >= 97)) && !(cod_ascii <= 255 && cod_ascii >= 192)) {
+                                    cout << endl;
+                                    cout << "Введеное сообщение:";
+                                    cout << text << endl;
+                                    cout << "Исходный текст должен начинаться с символов русского или английского алфавита " << endl;
+                                    break;
+                                }
+                                int k = 0;
+                                int m = 0;
+                                for (int i = 0; i < text.size(); i++) {
+                                    int cod_ascii = (int)unsigned char(text[i]);
+                                    if (!((cod_ascii <= 90 && cod_ascii >= 65) || (cod_ascii <= 122 && cod_ascii >= 97)) && !(cod_ascii <= 255 && cod_ascii >= 192) && text[i] != ' ' && text[i] != ',' && text[i] != '.' && text[i] != '?' && text[i] != '!' && text[i] != ':' && text[i] != '-') {
+                                        cout << endl;
+                                        cout << "Введеное сообщение:";
+                                        cout << text << endl;
+                                        cout << "Программа работает только с русскими или английскими символами" << endl;
+                                        error_flag2 = false;
+                                        break;
+                                    }
+                                }
+                                if (error_flag2 == false)
+                                {
+                                    error_flag2 = true;
+                                    break;
+                                }
+                                for (int i = 0; i < text.size(); i++)
+                                {
+                                    int cod_ascii = (int)unsigned char(text[i]);
+                                    if (!((cod_ascii <= 90 && cod_ascii >= 65) || (cod_ascii <= 122 && cod_ascii >= 97)) && text[i] != ' ' && text[i] != ',' && text[i] != '.' && text[i] != '?' && text[i] != '!' && text[i] != ':' && text[i] != '-')
+                                    {
+                                        k += 1;
+                                    }
+                                    else if (!(cod_ascii <= 255 && cod_ascii >= 192) && text[i] != ' ' && text[i] != ',' && text[i] != '.' && text[i] != '?' && text[i] != '!' && text[i] != ':' && text[i] != '-') {
+                                        m += 1;
+                                    }
+                                }
+                                if (m != 0 && k != 0) {
+                                    cout << endl;
+                                    cout << "Введеное сообщение:";
+                                    cout << text << endl;
+                                    cout << "Программа работает только с русскими или английскими символами, нельзя ввести сразу англиские и руские символы " << endl;
+                                    break;
+                                }
+                                cout << endl;
+                                cout << "Шифр Гронсфельда: " << endl;
+                                switch (stoi(to_do))
+                                {
+                                case 1:
+                                {
+                                    cout << "Введенное сообщение:" << text << endl;
+                                    cout << "Введенный ключ:" << key << endl;
+                                    cout << "Зашифрованное сообщение:" << Gronsfeld_Encrypt(text, key) << endl;
+                                    fout << Gronsfeld_Encrypt(text, key) << endl;
+                                    break;
+                                }
+                                case 2:
+                                {
+                                    cout << "Введенное сообщение:" << text << endl;
+                                    cout << "Введенный ключ:" << key << endl;
+                                    cout << "Расшифрованное сообщение:" << Gronsfeld_Decrypt(text, key) << endl;
+                                    fout << Gronsfeld_Decrypt(text, key) << endl;
+                                    break;
+                                }
+                                }
+                                user_pswd = "-1";
+                                break;
+                            }
+                        }
                         system("pause");
                         break;
                     }
                     case 5:
                     {
-                        cout << "В разработке другим студентом." << endl;
+                        system("cls");
+                        cout << "Табличная шифровка с ключевым словом:"
+                            << endl << "1) Шифровка применима только к выражениям, у которых количество букв в тексте делится на количество символов в ключе нацело."
+                            << endl << "2) Ключ принимает в себя, либо уникальный набор чисел(кроме 0), либо набор букв английского или русского алфавита." << endl;
+                        fin.close();
+                        fin.open(file_name_in);
+                        bool ChoiseToLeave = false;
+                        while (stoi(user_pswd) != password)
+                        {
+                            cout << "Если вы не хотите использовать это шифрование, напишите \"E_X_I_T\"" << endl;
+                            cout << "Введите пароль:";
+                            getline(cin, user_pswd);
+                            if (user_pswd == "E_X_I_T")
+                            {
+                                user_pswd = "-1";
+                                ChoiseToLeave = true;
+                                break;
+                            }
+                            try
+                            {
+                                stoi(user_pswd);
+                            }
+                            catch (const std::exception&)
+                            {
+                                cout << "Символы пароля должны быть цифрами." << endl;
+                                user_pswd = "-1";
+                                continue;
+                            }
+                            if (stoi(user_pswd) != password)
+                            {
+                                cout << "Неверный пароль." << endl;
+                            }
+                        }
+                        if (ChoiseToLeave) break;
+                        string to_do;
+                        cout << "Что вы хотите сделать?\n\"1\" - зашифровать\n\"2\" - расшифровать" << endl;
+                        getline(cin, to_do);
+                        cout << "Введите ключ шифрования:";
+                        getline(cin, key);
+                        int k = 0;
+                        int m = 0;
+                        int c = 0;
+                        set<char> unique_key;
+                        for (int i = 0; i < key.size(); i++) {
+                            unique_key.insert(key[i]);
+                            int cod_ascii = (int)unsigned char(key[i]);
+                            if (!(cod_ascii <= 122 && cod_ascii >= 97) && !(cod_ascii <= 255 && cod_ascii >= 224) && !(cod_ascii >= 48 && cod_ascii <= 57) && key[i] != ' ') {
+                                system("cls");
+                                cout << "Ключ принимает одни цифры или чисто русские или английские символы с нижним регистром" << endl;
+                                system("pause");
+                                error_flag = true;
+                                break;
+                            }
+                            if ((cod_ascii <= 122 && cod_ascii >= 97) && (cod_ascii >= 49 && cod_ascii <= 57) && key[i] != ' ')
+                            {
+                                m += 1;
+                            }
+                            else if ((cod_ascii <= 255 && cod_ascii >= 224) && (cod_ascii >= 49 && cod_ascii <= 57) && key[i] != ' ') {
+                                k += 1;
+                            }
+                            else if (cod_ascii >= 49 && cod_ascii <= 57 && key[i] != ' ') {
+                                c += 1;
+                            }
+                            else if (key[i] == ' ')
+                            {
+                                system("cls");
+                                cout << "В ключе не должно быть пробелов" << endl;
+                                system("pause");
+                                error_flag = true;
+                                break;
+                            }
+                            else if (cod_ascii == 48) {
+                                system("cls");
+                                cout << "В ключе не должно быть нулей" << endl;
+                                system("pause");
+                                error_flag = true;
+                                break;
+                            }
+                        }
+                        if ((m != 0 && k != 0) || (m != 0 && c != 0) || (k != 0 && c != 0)) {
+                            system("cls");
+                            cout << "ключ должен быть исключительно из чисел, либо с нижними регистроми английских или русских символов." << endl;
+                            system("pause");
+                            error_flag = true;
+                            break;
+                        }
+                        if (c != 0) {
+                            if (unique_key.size() != key.size())
+                            {
+                                system("cls");
+                                cout << "ключ из цифер не должен содержать одинаковые значения." << endl;
+                                system("pause");
+                                error_flag = true;
+                                break;
+                            }
+                        }
+                        if (key.size() > 9) {
+                            system("cls");
+                            cout << "ключ не может быть больше 9 символов" << endl;
+                            system("pause");
+                            error_flag = true;
+                            break;
+                        }
+                        if (error_flag == true)
+                        {
+                            error_flag = false;
+                            break;
+                        }
+                        error_flag2 = true;
+                        while (!fin.eof())
+                        {
+                            string mama;
+                            getline(fin, text);
+                            if (text == "") continue;
+                            while (true) {
+                                int k2 = 0;
+                                int m2 = 0;
+                                for (int i = 0; i < text.size(); i++) {
+                                    int cod_ascii = (int)unsigned char(text[i]);
+                                    if (!((cod_ascii <= 90 && cod_ascii >= 65) || (cod_ascii <= 122 && cod_ascii >= 97)) && !(cod_ascii <= 255 && cod_ascii >= 192) && text[i] != ' ' && text[i] != ',' && text[i] != '.' && text[i] != '?' && text[i] != '!' && text[i] != ':' && text[i] != '-') {
+                                        cout << endl;
+                                        cout << "Введенное сообщение: " << text << endl;
+                                        cout << "Программа работает только с русскими или английскими символами" << endl;
+                                        error_flag2 = false;
+                                        break;
+                                    }
+                                    if (!((cod_ascii <= 90 && cod_ascii >= 65) || (cod_ascii <= 122 && cod_ascii >= 97)) && text[i] != ' ' && text[i] != ',' && text[i] != '.' && text[i] != '?' && text[i] != '!' && text[i] != ':' && text[i] != '-')
+                                    {
+                                        k2 += 1;
+                                    }
+                                    else if (!(cod_ascii <= 255 && cod_ascii >= 192) && text[i] != ' ' && text[i] != ',' && text[i] != '.' && text[i] != '?' && text[i] != '!' && text[i] != ':' && text[i] != '-') {
+                                        m2 += 1;
+                                    }
+                                    if (text[i] != ' ' && text[i] != ',' && text[i] != '.' && text[i] != '?' && text[i] != '!' && text[i] != ':' && text[i] != '-') {
+                                        mama += text[i];
+                                    }
+                                }
+                                if (error_flag2 == false)
+                                {
+                                    error_flag2 = true;
+                                    break;
+                                }
+                                if (m2 != 0 && k2 != 0) {
+                                    cout << endl;
+                                    cout << "Введенное сообщение: " << text << endl;
+                                    cout << "Программа работает только с русскими или английскими символами, нельзя ввести сразу англиские и руские символы " << endl;
+                                    break;
+                                }
+                                else if (mama.size() % key.size() != 0) {
+                                    cout << endl;
+                                    cout << "Введенное сообщение: " << text << endl;
+                                    cout << "Шифровка применима только к выражениям, у которых количество букв в тексте делится на количество символов в ключе нацело. " << endl;
+                                    break;
+                                }
+                                cout << endl;
+                                cout << "Табличная шифровка с ключевым словом:" << endl;
+                                switch (stoi(to_do))
+                                {
+                                case 1:
+                                {
+                                    cout << "Введенное сообщение:" << text << endl;
+                                    cout << "Введенный ключ:" << key << endl;
+                                    cout << "Зашифрованное сообщение:" << TablePermutation_Encrypt(text, key) << endl;
+                                    fout << TablePermutation_Encrypt(text, key) << endl;
+                                    break;
+                                }
+                                case 2:
+                                {
+                                    cout << "Введенное сообщение:" << text << endl;
+                                    cout << "Введенный ключ:" << key << endl;
+                                    cout << "Расшифрованное сообщение:" << TablePermutation_Decrypt(text, key) << endl;
+                                    fout << TablePermutation_Decrypt(text, key) << endl;
+                                    break;
+                                }
+                                }
+                                user_pswd = "-1";
+                                break;
+                            }
+                        }
                         system("pause");
                         break;
                     }
                     case 6:
                     {
-                        cout << "В разработке другим студентом." << endl;
+                        system("cls");
+                        cout << "Шифр Атбаша:" << endl;
+                        fin.close();
+                        fin.open(file_name_in);
+                        bool ChoiseToLeave = false;
+                        int attempt = 0;
+                        while (stoi(user_pswd) != password)
+                        {
+                            cout << "Если вы не хотите использовать это шифрование, напишите \"E_X_I_T\"" << endl;
+                            cout << "Введите пароль:";
+                            getline(cin, user_pswd);
+                            if (user_pswd == "E_X_I_T")
+                            {
+                                user_pswd = "-1";
+                                ChoiseToLeave = true;
+                                break;
+                            }
+                            try
+                            {
+                                stoi(user_pswd);
+                            }
+                            catch (const std::exception&)
+                            {
+                                cout << "Символы пароля должны быть цифрами." << endl;
+                                user_pswd = "-1";
+                                continue;
+                            }
+                            if (stoi(user_pswd) != password)
+                            {
+                                cout << "Неверный пароль." << endl;
+                            }
+                        }
+                        user_pswd = "-1";
+                        if (ChoiseToLeave) break;
+                        string to_do;
+                        cout << "Шифровка Атбаша:" << endl;
+                        cout << "Что вы хотите сделать?\n\"1\" - зашифровать\n\"2\" - расшифровать" << endl;
+                        getline(cin, to_do);
+                        while (!fin.eof())
+                        {
+                            getline(fin, text);
+                            if (text == "") continue;
+                            error_flag2 = true;
+                            while (true) {
+                                int c = 0;
+                                int t = 0;
+                                int cod_ascii = (int)unsigned char(text[0]);
+                                if (!((cod_ascii <= 90 && cod_ascii >= 65) || (cod_ascii <= 122 && cod_ascii >= 97)) && !(cod_ascii <= 255 && cod_ascii >= 192)) {
+                                    cout << endl;
+                                    cout << "Введеное сообщение:";
+                                    cout << text << endl;
+                                    cout << "Исходный текст должен начинаться с символов русского или английского алфавита " << endl;
+                                    break;
+                                }
+                                for (int i = 0; i < text.size(); i++) {
+                                    int cod_ascii = (int)unsigned char(text[i]);
+                                    if (!((cod_ascii <= 90 && cod_ascii >= 65) || (cod_ascii <= 122 && cod_ascii >= 97)) && !(cod_ascii <= 255 && cod_ascii >= 192) && text[i] != ' ' && text[i] != ',' && text[i] != '.' && text[i] != '?' && text[i] != '!' && text[i] != ':' && text[i] != '-') {
+                                        cout << endl;
+                                        cout << "Исходное сообщение: " << text << endl;
+                                        cout << "Программа работает только с русскими или английскими символами" << endl;
+                                        error_flag2 = false;
+                                        break;
+                                    }
+                                }
+                                if (error_flag2 == false)
+                                {
+                                    error_flag = true;
+                                    break;
+                                }
+                                for (int i = 0; i < text.size(); i++)
+                                {
+                                    int cod_ascii = (int)unsigned char(text[i]);
+                                    if (!((cod_ascii <= 90 && cod_ascii >= 65) || (cod_ascii <= 122 && cod_ascii >= 97)) && text[i] != ' ' && text[i] != ',' && text[i] != '.' && text[i] != '?' && text[i] != '!' && text[i] != ':' && text[i] != '-')
+                                    {
+                                        c += 1;
+                                    }
+                                    else if (!(cod_ascii <= 255 && cod_ascii >= 192) && text[i] != ' ' && text[i] != ',' && text[i] != '.' && text[i] != '?' && text[i] != '!' && text[i] != ':' && text[i] != '-') {
+                                        t += 1;
+                                    }
+                                }
+                                if (c != 0 && t != 0) {
+                                    cout << endl;
+                                    cout << "Исходное сообщение: " << text << endl;
+                                    cout << "Программа работает только с русскими или английскими символами, нельзя ввести сразу англиские и руские символы " << endl;
+                                    break;
+                                }
+                                cout << "Введенное сообщение:" << text << endl;
+                                switch (stoi(to_do))
+                                {
+                                case 1:
+                                {
+                                    cout << "Зашифрованное сообщение:" << Atbash_Encrypt(text) << endl;
+                                    fout << Atbash_Encrypt(text) << endl;
+                                    break;
+                                }
+                                case 2:
+                                {
+                                    cout << "Расшифрованное сообщение:" << Atbash_Decrypt(text) << endl;
+                                    fout << Atbash_Decrypt(text) << endl;
+                                    break;
+                                }
+                                }
+                                user_pswd = "-1";
+                                break;
+                            }
+                        }
                         system("pause");
                         break;
                     }
