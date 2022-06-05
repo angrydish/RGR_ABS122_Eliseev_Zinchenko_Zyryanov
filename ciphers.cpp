@@ -97,7 +97,7 @@ string Gronsfeld_Decrypt(string text, string key) {
     }
     for (int i = 0; decrypt_text.size() < text.size(); i++) {
         if (text[i] == ' ' || text[i] == ',' || text[i] == '.' || text[i] == '?' || text[i] == '!' || text[i] == ':' || text[i] == '-') {
-            decrypt_text.insert(i, 1, char(32));
+            decrypt_text.insert(i, 1, text[i]);
         }
         else {
             auto n = find(alphabet.begin(), alphabet.end(), text[i]);
@@ -113,7 +113,6 @@ string Gronsfeld_Decrypt(string text, string key) {
     for (auto& it : index_isupper) {
         decrypt_text[it] = (char)toupper(decrypt_text[it]);
     }
-
     return decrypt_text;
 }
 string TablePermutation_Encrypt(string text, string key) {
@@ -121,27 +120,18 @@ string TablePermutation_Encrypt(string text, string key) {
     string encrypted_text, mama, key1;
 
     for (int i = 0; i < text.size(); i++) {
-        if (text[i] != ' ') {
+        if (text[i] != ' ' && text[i] != ',' && text[i] != '.' && text[i] != '?' && text[i] != '!' && text[i] != ':' && text[i] != '-') {
             mama += text[i];
         }
     }
-
     int m = (mama.size() / key.size()) + 1;
     int n = key.size();
     vector<vector<char>> table_swap_stlb(m, vector<char>(n, 'z'));
     set<char>unique_key;
-
-    if (mama.size() % key.size() != 0) {
-        return "this won't work";
-    }
-
     for (int j = 0; j < key.size(); j++) {
         int min_bs = 255;
         int index = 0;
         for (int i = 0; i < key.size(); i++) {
-            if (key[i] == '0') {
-                return "null cannot be entered in the key";
-            }
             int cod_ascci = (int)unsigned char(key[i]);
             if ((cod_ascci > 223 && cod_ascci < 256) || (cod_ascci > 96 && cod_ascci < 123)) {
                 if (cod_ascci <= min_bs) {
@@ -151,17 +141,6 @@ string TablePermutation_Encrypt(string text, string key) {
             }
         }
         key[index] = (j + 1) + '0';
-    }
-    for (int j = 0; j < key.size(); j++) {
-        int cod_ascci = (int)unsigned char(key[j]);
-        if (!((cod_ascci > 223 && cod_ascci < 256) || (cod_ascci > 96 && cod_ascci < 123) || (cod_ascci > 64 && cod_ascci < 91))) {
-            unique_key.insert(key[j]);
-            key1 += key[j];
-        }
-    }
-    if (key1.size() != key.size())
-    {
-        return "-1";
     }
     for (int i = 0; i < n; i++) {
         table_swap_stlb[0][i] = key[i];
@@ -194,6 +173,11 @@ string TablePermutation_Encrypt(string text, string key) {
         for (int j = 0; j < n; j++)
             encrypted_text += table_swap_stlb[i][j];
     }
+    for (int i = 0; i < text.size(); i++) {
+        if (text[i] == ' ' || text[i] == ',' || text[i] == '.' || text[i] == '?' || text[i] == '!' || text[i] == ':' || text[i] == '-') {
+            encrypted_text.insert(i, 1, text[i]);
+        }
+    }
     return encrypted_text;
 }
 string TablePermutation_Decrypt(string text, string key){
@@ -201,18 +185,13 @@ string TablePermutation_Decrypt(string text, string key){
     set<char>unique_key;
 
     for (int i = 0; i < text.size(); i++) {
-        if (text[i] != ' ') {
+        if (text[i] != ' ' && text[i] != ',' && text[i] != '.' && text[i] != '?' && text[i] != '!' && text[i] != ':' && text[i] != '-') {
             mama += text[i];
         }
     }
-
     int m = (mama.size() / key.size()) + 2;
     int n = key.size();
     vector<vector<char>> table_swap_stlb(m, vector<char>(n, 'z'));
-
-    if (mama.size() % key.size() != 0) {
-        return "this won't work";
-    }
 
     for (int j = 0; j < key.size(); j++) {
         int min_bs = 255;
@@ -234,10 +213,6 @@ string TablePermutation_Decrypt(string text, string key){
             unique_key.insert(key[j]);
             key1 += key[j];
         }
-    }
-    if (key1.size() != key.size())
-    {
-        return "-1";
     }
     for (int i = 0; i < n; i++) {
         table_swap_stlb[0][i] = key[i];
@@ -270,6 +245,11 @@ string TablePermutation_Decrypt(string text, string key){
     for (int i = 0, t = 0; i < n; i++) {
         for (int j = 2; j < m; j++, t++) {
             decrypt_text += table_swap_stlb[j][i];
+        }
+    }
+    for (int i = 0; i < text.size(); i++) {
+        if (text[i] == ' ' || text[i] == ',' || text[i] == '.' || text[i] == '?' || text[i] == '!' || text[i] == ':' || text[i] == '-') {
+            decrypt_text.insert(i, 1, text[i]);
         }
     }
     return decrypt_text;
