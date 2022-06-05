@@ -18,6 +18,7 @@ string Gronsfeld_Encrypt(string text, string key)
     string encrypted_text;
     vector<int>index_isupper;
     vector<char>alphabet;
+    vector<char>alphabet_sim = { ' ', '!', '.', '-', ',', ':', '?' };
 
     int cod_ascii = tolower((int)unsigned char(text[0]));
 
@@ -27,16 +28,12 @@ string Gronsfeld_Encrypt(string text, string key)
     else if (cod_ascii > 223 && cod_ascii < 256) {
         for (int i = 224; i < 256; i++) alphabet.push_back(char(i));
     }
-
-    for (int i = 0; key.size() < (count_if(text.begin(), text.end(), [](int c) { return c != ' ' && c != ',' && c != '.' && c != '?' && c != '!' && c != ':' && c != '-'; })); i++) {
+    for (int i = 0; key.size() < text.size(); i++) {
         key += key[i];
     }
     for (int i = 0; i < text.size(); i++) {
         int cod = (int)unsigned char(text[i]);
-        if (text[i] == ' ' || text[i] == ',' || text[i] == '.' || text[i] == '?' || text[i] == '!' || text[i] == ':' || text[i] == '-') {
-            key.insert(i, 1, text[i]);
-        }
-        else if ((cod > 191 && cod < 224) || (cod > 64 && cod < 91)) {
+        if ((cod > 191 && cod < 224) || (cod > 64 && cod < 91)) {
             index_isupper.push_back(i);
             text[i] = (char)tolower(text[i]);
         }
@@ -47,7 +44,14 @@ string Gronsfeld_Encrypt(string text, string key)
     }
     for (int i = 0; encrypted_text.size() < text.size(); i++) {
         if (text[i] == ' ' || text[i] == ',' || text[i] == '.' || text[i] == '?' || text[i] == '!' || text[i] == ':' || text[i] == '-') {
-            encrypted_text.insert(i, 1, text[i]);
+            auto n = find(alphabet_sim.begin(), alphabet_sim.end(), text[i]);
+            int index = n - alphabet_sim.begin() + key[i] - '0';
+            if (index >= alphabet_sim.size()) {
+                encrypted_text += alphabet_sim[(index - alphabet_sim.size())];
+            }
+            else {
+                encrypted_text += alphabet_sim[index];
+            }
         }
         else {
             auto n = find(alphabet.begin(), alphabet.end(), text[i]);
@@ -69,6 +73,7 @@ string Gronsfeld_Decrypt(string text, string key) {
     string decrypt_text;
     vector<int>index_isupper;
     vector<char>alphabet;
+    vector<char>alphabet_sim = { ' ', '!', '.', '-', ',', ':', '?' };
 
     int cod_ascii = tolower((int)unsigned char(text[0]));
     if (cod_ascii > 96 && cod_ascii < 123) {
@@ -78,15 +83,12 @@ string Gronsfeld_Decrypt(string text, string key) {
         for (int i = 224; i < 256; i++) alphabet.push_back(char(i));
     }
 
-    for (int i = 0; key.size() < (count_if(text.begin(), text.end(), [](int c) { return c != ' ' && c != ',' && c != '.' && c != '?' && c != '!' && c != ':' && c != '-'; })); i++) {
+    for (int i = 0; key.size() < text.size(); i++) {
         key += key[i];
     }
     for (int i = 0; i < text.size(); i++) {
         int cod = (int)unsigned char(text[i]);
-        if (text[i] == ' ' || text[i] == ',' || text[i] == '.' || text[i] == '?' || text[i] == '!' || text[i] == ':' || text[i] == '-') {
-            key.insert(i, 1, text[i]);
-        }
-        else if ((cod > 191 && cod < 224) || (cod > 64 && cod < 91)) {
+        if ((cod > 191 && cod < 224) || (cod > 64 && cod < 91)) {
             index_isupper.push_back(i);
             text[i] = (char)tolower(text[i]);
         }
@@ -97,7 +99,14 @@ string Gronsfeld_Decrypt(string text, string key) {
     }
     for (int i = 0; decrypt_text.size() < text.size(); i++) {
         if (text[i] == ' ' || text[i] == ',' || text[i] == '.' || text[i] == '?' || text[i] == '!' || text[i] == ':' || text[i] == '-') {
-            decrypt_text.insert(i, 1, text[i]);
+            auto n = find(alphabet_sim.begin(), alphabet_sim.end(), text[i]);
+            int index = n - alphabet_sim.begin() - (key[i] - '0');
+            if (index < 0) {
+                decrypt_text += alphabet_sim[(index + size(alphabet_sim))];
+            }
+            else {
+                decrypt_text += alphabet_sim[index];
+            }
         }
         else {
             auto n = find(alphabet.begin(), alphabet.end(), text[i]);
@@ -180,7 +189,7 @@ string TablePermutation_Encrypt(string text, string key) {
     }
     return encrypted_text;
 }
-string TablePermutation_Decrypt(string text, string key){
+string TablePermutation_Decrypt(string text, string key) {
     string decrypt_text, mama, key1;
     set<char>unique_key;
 
