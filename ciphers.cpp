@@ -21,20 +21,20 @@ string Gronsfeld_Encrypt(string text, string key)
 
     int cod_ascii = tolower((int)unsigned char(text[0]));
 
-    if (cod_ascii > 96 && cod_ascii < 123) {
+    if ((cod_ascii > 96 && cod_ascii < 123) || (cod_ascii > 64 && cod_ascii < 91)) {
         for (int i = 97; i < 123; i++) alphabet.push_back(char(i));
     }
     else if (cod_ascii > 223 && cod_ascii < 256) {
         for (int i = 224; i < 256; i++) alphabet.push_back(char(i));
     }
 
-    for (int i = 0; key.size() < (count_if(text.begin(), text.end(), [](int c) { return c != ' '; })); i++) {
+    for (int i = 0; key.size() < (count_if(text.begin(), text.end(), [](int c) { return c != ' ' && c != ',' && c != '.' && c != '?' && c != '!' && c != ':' && c != '-'; })); i++) {
         key += key[i];
     }
     for (int i = 0; i < text.size(); i++) {
         int cod = (int)unsigned char(text[i]);
-        if (text[i] == ' ') {
-            key.insert(i, 1, char(32));
+        if (text[i] == ' ' || text[i] == ',' || text[i] == '.' || text[i] == '?' || text[i] == '!' || text[i] == ':' || text[i] == '-') {
+            key.insert(i, 1, text[i]);
         }
         else if ((cod > 191 && cod < 224) || (cod > 64 && cod < 91)) {
             index_isupper.push_back(i);
@@ -46,8 +46,8 @@ string Gronsfeld_Encrypt(string text, string key)
         }
     }
     for (int i = 0; encrypted_text.size() < text.size(); i++) {
-        if (text[i] == ' ') {
-            encrypted_text.insert(i, 1, char(32));
+        if (text[i] == ' ' || text[i] == ',' || text[i] == '.' || text[i] == '?' || text[i] == '!' || text[i] == ':' || text[i] == '-') {
+            encrypted_text.insert(i, 1, text[i]);
         }
         else {
             auto n = find(alphabet.begin(), alphabet.end(), text[i]);
@@ -63,7 +63,6 @@ string Gronsfeld_Encrypt(string text, string key)
     for (auto& it : index_isupper) {
         encrypted_text[it] = (char)toupper(encrypted_text[it]);
     }
-
     return encrypted_text;
 }
 string Gronsfeld_Decrypt(string text, string key) {
@@ -79,13 +78,13 @@ string Gronsfeld_Decrypt(string text, string key) {
         for (int i = 224; i < 256; i++) alphabet.push_back(char(i));
     }
 
-    for (int i = 0; key.size() < (count_if(text.begin(), text.end(), [](int c) { return c != ' '; })); i++) {
+    for (int i = 0; key.size() < (count_if(text.begin(), text.end(), [](int c) { return c != ' ' && c != ',' && c != '.' && c != '?' && c != '!' && c != ':' && c != '-'; })); i++) {
         key += key[i];
     }
     for (int i = 0; i < text.size(); i++) {
         int cod = (int)unsigned char(text[i]);
-        if (text[i] == ' ') {
-            key.insert(i, 1, char(32));
+        if (text[i] == ' ' || text[i] == ',' || text[i] == '.' || text[i] == '?' || text[i] == '!' || text[i] == ':' || text[i] == '-') {
+            key.insert(i, 1, text[i]);
         }
         else if ((cod > 191 && cod < 224) || (cod > 64 && cod < 91)) {
             index_isupper.push_back(i);
@@ -97,7 +96,7 @@ string Gronsfeld_Decrypt(string text, string key) {
         }
     }
     for (int i = 0; decrypt_text.size() < text.size(); i++) {
-        if (text[i] == ' ') {
+        if (text[i] == ' ' || text[i] == ',' || text[i] == '.' || text[i] == '?' || text[i] == '!' || text[i] == ':' || text[i] == '-') {
             decrypt_text.insert(i, 1, char(32));
         }
         else {
@@ -303,8 +302,8 @@ string Atbash_Encrypt(string text) {
         }
     }
     for (int i = 0; encrypted_text.size() < text.size(); i++) {
-        if (text[i] == ' ') {
-            encrypted_text.insert(i, 1, char(32));
+        if (text[i] == ' ' || text[i] == ',' || text[i] == '.' || text[i] == '?' || text[i] == '!' || text[i] == ':' || text[i] == '-') {
+            encrypted_text.insert(i, 1, text[i]);
         }
         else {
             auto n = find(alphabet1.begin(), alphabet1.end(), text[i]);
@@ -344,8 +343,8 @@ string Atbash_Decrypt(string text) {
         }
     }
     for (int i = 0; decrypt_text.size() < text.size(); i++) {
-        if (text[i] == ' ') {
-            decrypt_text.insert(i, 1, char(32));
+        if (text[i] == ' ' || text[i] == ',' || text[i] == '.' || text[i] == '?' || text[i] == '!' || text[i] == ':' || text[i] == '-') {
+            decrypt_text.insert(i, 1, text[i]);
         }
         else {
             auto n = find(alphabet1.begin(), alphabet1.end(), text[i]);
