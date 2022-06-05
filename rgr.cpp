@@ -43,7 +43,7 @@ int main()
 
     if (stoi(fast_check) == 1)
     {
-        text = "ПерРвонАчалЬные ДокАзательства ЯвляЮтся пЕрвоиСтОчнИками СведЕний о оБстоятЕльсТвах";
+        text = "ПерРвонАчалЬные ДокАзательства - ЯвляЮтся пЕрвоиСтОчнИками, СведЕний о оБстоятЕльсТвах!?";
         key = "2456";
         cout << "Исходное сообщение: " << text << endl;
         cout << "Ключ: " << key << endl << endl;
@@ -60,7 +60,7 @@ int main()
         fout << "Зашифрованное сообщение: " << Gronsfeld_Encrypt(text, key) << endl;
         fout << "Расшифрованное сообщение: " << Gronsfeld_Decrypt(Gronsfeld_Encrypt(text, key), key) << endl << endl;
 
-        text = "sMeTaNa V sKvOrEcHnIkE";
+        text = "sMeTaNa V sKvOrEcHnIkE???";
         key = "567";
         cout << "Исходное сообщение: " << text << endl;
         cout << "Ключ: " << key << endl << endl;
@@ -77,7 +77,7 @@ int main()
         fout << "Зашифрованное сообщение: " << Gronsfeld_Encrypt(text, key) << endl;
         fout << "Расшифрованное сообщение: " << Gronsfeld_Decrypt(Gronsfeld_Encrypt(text, key), key) << endl << endl;
 
-        text = "БроДяГа паРень Молодой";
+        text = "БроДяГа - паРень Молодой.";
         key = "пока"; 
 
         cout << "Табличная шифровка с ключевым словом: " << endl;
@@ -92,7 +92,7 @@ int main()
         fout << "Зашифрованное сообщение: " << TablePermutation_Encrypt(text, key) << endl;
         fout << "Расшифрованное сообщение: " << TablePermutation_Decrypt(TablePermutation_Encrypt(text, key), key) << endl << endl;
 
-        text = "I wanna eat pizzaa";
+        text = "I wanna eat pizzaa!!!";
         key = "52413";
         cout << "Табличная шифровка с ключевым словом: " << endl;
         cout << "Введенное сообщение: " << text << endl;
@@ -106,7 +106,7 @@ int main()
         fout << "Зашифрованное сообщение: " << TablePermutation_Encrypt(text, key) << endl;
         fout << "Расшифрованное сообщение: " << TablePermutation_Decrypt(TablePermutation_Encrypt(text, key), key) << endl << endl;
 
-        text = "ВряД ли мНе пОмОгут Эти";
+        text = "ВряД ли мНе пОмОгут Эти. КТО ЭТИ?";
         cout << "Шифр Атбаш: " << endl;
         cout << "Введенное сообщение: " << text << endl;
         cout << "Зашифрованное сообщение:" << Atbash_Encrypt(text) << endl;
@@ -117,7 +117,7 @@ int main()
         fout << "Зашифрованное сообщение: " << Atbash_Encrypt(text) << endl;
         fout << "Расшифрованное сообщение: " << Atbash_Encrypt(Atbash_Encrypt(text)) << endl << endl;
 
-        text = "Lets celebrate";
+        text = "Lets celebrate, great";
         cout << "Шифр Атбаш: " << endl;
         cout << "Введенное сообщение: " << text << endl;
         cout << "Зашифрованное сообщение:" << Atbash_Encrypt(text) << endl;
@@ -390,6 +390,13 @@ int main()
                                 error_flag = true;
                                 break;
                             }
+                        }
+                        if (key.size() > 9) {
+                            system("cls");
+                            cout << "ключ не может быть больше 9 символов" << endl;
+                            system("pause");
+                            error_flag = true;
+                            break;
                         }
                         if (error_flag == true)
                         {
