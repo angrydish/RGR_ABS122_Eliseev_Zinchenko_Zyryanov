@@ -239,7 +239,7 @@ int main()
                         int k = 0;
                         int m = 0;
                         for (int i = 0; i < text.size(); i++) {
-                            int cod_ascii = tolower((int)unsigned char(text[i]));
+                            int cod_ascii = (int)unsigned char(text[i]);
                             if (!((cod_ascii <= 90 && cod_ascii >= 65) || (cod_ascii <= 122 && cod_ascii >= 97)) && !(cod_ascii <= 255 && cod_ascii >= 192) && text[i] != ' ' && text[i] != ',' && text[i] != '.' && text[i] != '?' && text[i] != '!' && text[i] != ':' && text[i] != '-'){
                                 system("cls");
                                 cout << "Программа работает только с русскими или английскими символами" << endl;
@@ -250,7 +250,7 @@ int main()
                         }
                         for (int i = 0; i < text.size(); i++)
                         {
-                            int cod_ascii = tolower((int)unsigned char(text[i]));
+                            int cod_ascii = (int)unsigned char(text[i]);
                             if (!((cod_ascii <= 90 && cod_ascii >= 65) || (cod_ascii <= 122 && cod_ascii >= 97)) && text[i] != ' ' && text[i] != ',' && text[i] != '.' && text[i] != '?' && text[i] != '!' && text[i] != ':' && text[i] != '-')
                             {
                                 k += 1;
@@ -299,7 +299,7 @@ int main()
                     {
                         system("cls");
                         cout << "Табличная шифровка с ключевым словом:"
-                            << endl << "1) Шифровка применима только к выражениям, у которых количество букв() в тексте делится на количество символов в ключе нацело."
+                            << endl << "1) Шифровка применима только к выражениям, у которых количество букв в тексте делится на количество символов в ключе нацело."
                             << endl << "2) Ключ принимает в себя, либо уникальный набор чисел(кроме 0), либо набор букв английского или русского алфавита." << endl;
                         bool ChoiseToLeave = false;
                         while (stoi(user_pswd) != password)
@@ -337,24 +337,22 @@ int main()
                         int k = 0;
                         int m = 0;
                         int c = 0;
+                        set<char> unique_key;
                         for (int i = 0; i < key.size(); i++) {
-                            int cod_ascii = tolower((int)unsigned char(key[i]));
-                            if (!((cod_ascii <= 90 && cod_ascii >= 65) || (cod_ascii <= 122 && cod_ascii >= 97)) && !(cod_ascii <= 255 && cod_ascii >= 192) && !(cod_ascii >= 49 && cod_ascii <= 57) && key[i] != ' ') {
+                            unique_key.insert(key[i]);
+                            int cod_ascii = (int)unsigned char(key[i]);
+                            if (!(cod_ascii <= 122 && cod_ascii >= 97) && !(cod_ascii <= 255 && cod_ascii >= 224) && !(cod_ascii >= 48 && cod_ascii <= 57) && key[i] != ' ') {
                                 system("cls");
-                                cout << "Ключ принимает одни цифры или чисто русские или английские символы" << endl;
+                                cout << "Ключ принимает одни цифры или чисто русские или английские символы с нижним регистром" << endl;
                                 system("pause");
                                 error_flag = true;
                                 break;
                             }
-                        }
-                        for (int i = 0; i < key.size(); i++)
-                        {
-                            int cod_ascii = tolower((int)unsigned char(key[i]));
-                            if (!(cod_ascii <= 122 && cod_ascii >= 97) && !(cod_ascii >= 49 && cod_ascii <= 57) && key[i] != ' ')
+                            if ((cod_ascii <= 122 && cod_ascii >= 97) && (cod_ascii >= 49 && cod_ascii <= 57) && key[i] != ' ')
                             {
                                 m += 1;
                             }
-                            else if (!(cod_ascii <= 255 && cod_ascii >= 224) && !(cod_ascii >= 49 && cod_ascii <= 57) && key[i] != ' ') {
+                            else if ((cod_ascii <= 255 && cod_ascii >= 224) && (cod_ascii >= 49 && cod_ascii <= 57) && key[i] != ' ') {
                                 k += 1;
                             }
                             else if (cod_ascii >= 49 && cod_ascii <= 57 && key[i] != ' ') {
@@ -368,6 +366,13 @@ int main()
                                 error_flag = true;
                                 break;
                             }
+                            else if (cod_ascii == 48) {
+                                system("cls");
+                                cout << "В ключе не должно быть нулей" << endl;
+                                system("pause");
+                                error_flag = true;
+                                break;
+                            }
                         }
                         if ((m != 0 && k != 0) || (m != 0 && c!=0) || (k != 0 && c != 0)) {
                             system("cls");
@@ -375,6 +380,16 @@ int main()
                             system("pause");
                             error_flag = true;
                             break;
+                        }
+                        if(c!=0){
+                            if (unique_key.size() != key.size())
+                            {
+                                system("cls");
+                                cout << "ключ из цифер не должен содержать одинаковые значения." << endl;
+                                system("pause");
+                                error_flag = true;
+                                break;
+                            }
                         }
                         if (error_flag == true)
                         {
@@ -385,8 +400,9 @@ int main()
                         getline(cin, text);
                         int k2 = 0;
                         int m2 = 0;
+                        string mama;
                         for(int i = 0; i < text.size(); i++) {
-                            int cod_ascii = tolower((int)unsigned char(text[i]));
+                            int cod_ascii = (int)unsigned char(text[i]);
                             if (!((cod_ascii <= 90 && cod_ascii >= 65) || (cod_ascii <= 122 && cod_ascii >= 97)) && !(cod_ascii <= 255 && cod_ascii >= 192) && text[i] != ' ' && text[i] != ',' && text[i] != '.' && text[i] != '?' && text[i] != '!' && text[i] != ':' && text[i] != '-') {
                                 system("cls");
                                 cout << "Программа работает только с русскими или английскими символами" << endl;
@@ -394,10 +410,6 @@ int main()
                                 error_flag = true;
                                 break;
                             }
-                        }
-                        for (int i = 0; i < text.size(); i++)
-                        {
-                            int cod_ascii = tolower((int)unsigned char(text[i]));
                             if (!((cod_ascii <= 90 && cod_ascii >= 65) || (cod_ascii <= 122 && cod_ascii >= 97)) && text[i] != ' ' && text[i] != ',' && text[i] != '.' && text[i] != '?' && text[i] != '!' && text[i] != ':' && text[i] != '-')
                             {
                                 k2 += 1;
@@ -405,24 +417,20 @@ int main()
                             else if (!(cod_ascii <= 255 && cod_ascii >= 192) && text[i] != ' ' && text[i] != ',' && text[i] != '.' && text[i] != '?' && text[i] != '!' && text[i] != ':' && text[i] != '-') {
                                 m2 += 1;
                             }
+                            if (text[i] != ' ' && text[i] != ',' && text[i] != '.' && text[i] != '?' && text[i] != '!' && text[i] != ':' && text[i] != '-') {
+                                mama += text[i];
+                            }
                         }
                         if (m2 != 0 && k2 != 0) {
                             system("cls");
-                            cout << "Программа работает только с русскими или английскими символами, нельзя ввести сразу англискии и рускии символы " << endl;
+                            cout << "Программа работает только с русскими или английскими символами, нельзя ввести сразу англиские и руские символы " << endl;
                             system("pause");
                             error_flag = true;
-                        }
-                        if (TablePermutation_Encrypt(text, key) == "this won't work")
-                        {
-                            cout << "Табличная шифровка с ключевым словом применима только к выражениям, у которых количество букв в тексте делится на количество символов в ключе нацело." << endl;
+                        }else if (mama.size() % key.size() != 0) {
+                            system("cls");
+                            cout << "Шифровка применима только к выражениям, у которых количество букв в тексте делится на количество символов в ключе нацело. " << endl;
                             system("pause");
-                            break;
-                        }
-                        if (TablePermutation_Encrypt(text, key) == "-1")
-                        {
-                            cout << "Если вы ввели в качестве ключа числа, то они все должны быть уникальными." << endl;
-                            system("pause");
-                            break;
+                            error_flag = true;
                         }
                         if (error_flag == true)
                         {
@@ -497,7 +505,7 @@ int main()
                         int c = 0;
                         int t = 0;
                         for (int i = 0; i < text.size(); i++) {
-                            int cod_ascii = tolower((int)unsigned char(text[i]));
+                            int cod_ascii = (int)unsigned char(text[i]);
                             if (!((cod_ascii <= 90 && cod_ascii >= 65) || (cod_ascii <= 122 && cod_ascii >= 97)) && !(cod_ascii <= 255 && cod_ascii >= 192) && text[i] != ' ' && text[i] != ',' && text[i] != '.' && text[i] != '?' && text[i] != '!' && text[i] != ':' && text[i] != '-') {
                                 system("cls");
                                 cout << "Программа работает только с русскими или английскими символами" << endl;
@@ -508,7 +516,7 @@ int main()
                         }
                         for (int i = 0; i < text.size(); i++)
                         {
-                            int cod_ascii = tolower((int)unsigned char(text[i]));
+                            int cod_ascii = (int)unsigned char(text[i]);
                             if (!((cod_ascii <= 90 && cod_ascii >= 65) || (cod_ascii <= 122 && cod_ascii >= 97)) && text[i] != ' ' && text[i] != ',' && text[i] != '.' && text[i] != '?' && text[i] != '!' && text[i] != ':' && text[i] != '-')
                             {
                                 c += 1;
