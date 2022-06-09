@@ -40,8 +40,6 @@ OMT:
         fout.open("out.txt");
         text = "mama mila ramu";
         key = "qwe";
-        cout << "Исходное сообщение:" << text << endl;
-        cout << "Ключ:" << key << endl << endl;
 
         cout << "Шифр Вижинера:" << endl;
         cout << "Введенное сообщение:" << text << endl;
@@ -74,18 +72,16 @@ OMT:
         cout << "Введенное сообщение:" << text << endl;
         cout << "Введенный ключ:" << key << endl;
         cout << "Зашифрованное сообщение:" << DoubleTableSwapEncrypt(text, key) << endl;
-        cout << "Расшифрованное сообщение:" << DoubleTableSwapDecrypt(DoubleTableSwapEncrypt(text, key), key) << endl;
+        cout << "Расшифрованное сообщение:" << DoubleTableSwapDecrypt(DoubleTableSwapEncrypt(text, key), key) << endl << endl;
 
         fout << "Шифровка двойной табличной перестановкой:" << endl;
         fout << "Введенное сообщение:" << text << endl;
         fout << "Введенный ключ:" << key << endl;
         fout << "Зашифрованное сообщение:" << DoubleTableSwapEncrypt(text, key) << endl;
-        fout << "Расшифрованное сообщение:" << DoubleTableSwapDecrypt(DoubleTableSwapEncrypt(text, key), key) << endl;
+        fout << "Расшифрованное сообщение:" << DoubleTableSwapDecrypt(DoubleTableSwapEncrypt(text, key), key) << endl << endl;
 
         text = "ПерРвонАчалЬные ДокАзательства - ЯвляЮтся пЕрвоиСтОчнИками, СведЕний о оБстоятЕльсТвах!?";
         key = "2456";
-        cout << "Исходное сообщение: " << text << endl;
-        cout << "Ключ: " << key << endl << endl;
 
         cout << "Шифр Гронсфельда: " << endl;
         cout << "Введенное сообщение: " << text << endl;
@@ -101,8 +97,6 @@ OMT:
 
         text = "sMeTaNa V sKvOrEcHnIkE???";
         key = "567";
-        cout << "Исходное сообщение: " << text << endl;
-        cout << "Ключ: " << key << endl << endl;
 
         cout << "Шифр Гронсфельда: " << endl;
         cout << "Введенное сообщение: " << text << endl;
