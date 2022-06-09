@@ -13,26 +13,12 @@ int main()
     ofstream fout;
     setlocale(0, "");
     string text, key, user_pswd, user_choice = "0";
-    string file_name_in = "in.txt", file_name_out, fin_text;
+    string file_name_in, file_name_out, fin_text;
     int password = 1111;
     int user_choice_int = -1;
     bool error_flag = false;
     bool error_flag2 = true;
-
     fin.open(file_name_in);
-    if (!fin.is_open())
-    {
-        cout << "Не удалось открыть файл ввода." << endl;
-        exit(0);
-    }
-    cout << "Введите имя файла вывода:";
-    getline(cin, file_name_out);
-    fout.open(file_name_out);
-    if (!fout.is_open())
-    {
-        cout << "Не удалось открыть файл вывода." << endl;
-        exit(0);
-    }
 
     string fast_check;
     cout << "Быстрая проверка?(1 - да, 0 - нет):";
@@ -51,6 +37,7 @@ OMT:
 
     if (stoi(fast_check) == 1)
     {
+        fout.open("out.txt");
         text = "mama mila ramu";
         key = "qwe";
         cout << "Исходное сообщение:" << text << endl;
@@ -186,7 +173,24 @@ OMT:
     }
     else if (stoi(fast_check) == 0)
     {
-
+        cout << "Введите имя файла ввода:";
+        getline(cin, file_name_in);
+        fin.open(file_name_in);
+        if (!fin.is_open())
+        {
+            cout << "Не удалось открыть файл ввода." << endl;
+            system("pause");
+            exit(0);
+        }
+        cout << "Введите имя файла вывода:";
+        getline(cin, file_name_out);
+        fout.open(file_name_out);
+        if (!fout.is_open())
+        {
+            cout << "Не удалось открыть файл вывода." << endl;
+            system("pause");
+            exit(0);
+        }
         while (true)
         {
             cout << "Пароль:";
