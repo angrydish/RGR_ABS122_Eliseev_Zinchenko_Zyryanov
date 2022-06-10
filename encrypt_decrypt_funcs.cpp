@@ -613,7 +613,6 @@ string VigenereDecrypt(const string text, const string key)
     return crypt1;
 }
 
-
 string Gronsfeld_Encrypt(string text, string key)
 {
     setlocale(LC_ALL, "Rus");
@@ -727,7 +726,7 @@ string Gronsfeld_Decrypt(string text, string key) {
     }
     return decrypt_text;
 }
-string TablePermutation_Encrypt(string text, string key) {
+string TablePermutation_Encrypt(const string text, string key) {
 
     string encrypted_text, mama, key1;
 
@@ -792,7 +791,7 @@ string TablePermutation_Encrypt(string text, string key) {
     }
     return encrypted_text;
 }
-string TablePermutation_Decrypt(string text, string key) {
+string TablePermutation_Decrypt(const string text,  string key) {
     string decrypt_text, mama, key1;
     set<char>unique_key;
 
