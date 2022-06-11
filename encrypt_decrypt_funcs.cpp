@@ -749,7 +749,7 @@ string TablePermutation_Encrypt(const string text, const string key_cs) {
         for (int i = 0; i < key.size(); i++) {
             int cod_ascci = (int)unsigned char(key[i]);
             if ((cod_ascci > 223 && cod_ascci < 256) || (cod_ascci > 96 && cod_ascci < 123)) {
-                if (cod_ascci <= min_bs) {
+                if (cod_ascci < min_bs) {
                     min_bs = cod_ascci;
                     index = i;
                 }
@@ -813,7 +813,7 @@ string TablePermutation_Decrypt(const string text, const string key_cs) {
         for (int i = 0; i < key.size(); i++) {
             int cod_ascci = (int)unsigned char(key[i]);
             if ((cod_ascci > 223 && cod_ascci < 256) || (cod_ascci > 96 && cod_ascci < 123)) {
-                if (cod_ascci <= min_bs) {
+                if (cod_ascci < min_bs) {
                     min_bs = cod_ascci;
                     index = i;
                 }
