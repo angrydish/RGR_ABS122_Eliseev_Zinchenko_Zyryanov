@@ -613,10 +613,11 @@ string VigenereDecrypt(const string text, const string key)
     return crypt1;
 }
 
-string Gronsfeld_Encrypt(string text, string key)
+string Gronsfeld_Encrypt(const string text_cs, const string key_cs)
 {
     setlocale(LC_ALL, "Rus");
-
+    string text = text_cs;
+    string key = key_cs;
     string encrypted_text;
     vector<int>index_isupper;
     vector<char>alphabet;
@@ -671,7 +672,9 @@ string Gronsfeld_Encrypt(string text, string key)
     }
     return encrypted_text;
 }
-string Gronsfeld_Decrypt(string text, string key) {
+string Gronsfeld_Decrypt(const string text_cs, const string key_cs) {
+    string text = text_cs;
+    string key = key_cs;
     string decrypt_text;
     vector<int>index_isupper;
     vector<char>alphabet;
@@ -726,9 +729,10 @@ string Gronsfeld_Decrypt(string text, string key) {
     }
     return decrypt_text;
 }
-string TablePermutation_Encrypt(const string text, string key) {
+string TablePermutation_Encrypt(const string text, const string key_cs) {
 
-    string encrypted_text, mama, key1;
+    string encrypted_text, mama;
+    string key = key_cs;
 
     for (int i = 0; i < text.size(); i++) {
         if (text[i] != ' ' && text[i] != ',' && text[i] != '.' && text[i] != '?' && text[i] != '!' && text[i] != ':' && text[i] != '-') {
@@ -791,10 +795,9 @@ string TablePermutation_Encrypt(const string text, string key) {
     }
     return encrypted_text;
 }
-string TablePermutation_Decrypt(const string text,  string key) {
-    string decrypt_text, mama, key1;
-    set<char>unique_key;
-
+string TablePermutation_Decrypt(const string text, const string key_cs) {
+    string decrypt_text, mama;
+    string key = key_cs;
     for (int i = 0; i < text.size(); i++) {
         if (text[i] != ' ' && text[i] != ',' && text[i] != '.' && text[i] != '?' && text[i] != '!' && text[i] != ':' && text[i] != '-') {
             mama += text[i];
@@ -817,13 +820,6 @@ string TablePermutation_Decrypt(const string text,  string key) {
             }
         }
         key[index] = (j + 1) + '0';
-    }
-    for (int j = 0; j < key.size(); j++) {
-        int cod_ascci = (int)unsigned char(key[j]);
-        if (!((cod_ascci > 223 && cod_ascci < 256) || (cod_ascci > 96 && cod_ascci < 123) || (cod_ascci > 64 && cod_ascci < 91))) {
-            unique_key.insert(key[j]);
-            key1 += key[j];
-        }
     }
     for (int i = 0; i < n; i++) {
         table_swap_stlb[0][i] = key[i];
@@ -865,8 +861,8 @@ string TablePermutation_Decrypt(const string text,  string key) {
     }
     return decrypt_text;
 }
-string Atbash_Encrypt(string text) {
-
+string Atbash_Encrypt(const string text_cs) {
+    string text = text_cs;
     string encrypted_text;
     vector<int>index_isupper;
     vector<char>alphabet1;
@@ -907,7 +903,8 @@ string Atbash_Encrypt(string text) {
     }
     return encrypted_text;
 }
-string Atbash_Decrypt(string text) {
+string Atbash_Decrypt(const string text_cs) {
+    string text = text_cs;
     string decrypt_text;
     vector<int>index_isupper;
     vector<char>alphabet1;
