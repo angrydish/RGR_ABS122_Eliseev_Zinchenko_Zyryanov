@@ -14,7 +14,7 @@ int main()
     setlocale(0, "");
     string text, key, user_pswd, user_choice = "0";
     string file_name_in, file_name_out, fin_text;
-    int password = 1111;
+    const int password = 1111;
     int user_choice_int = -1;
     bool error_flag = false;
     bool error_flag2 = true;

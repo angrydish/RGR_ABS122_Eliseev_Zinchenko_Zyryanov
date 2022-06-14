@@ -667,7 +667,7 @@ string Gronsfeld_Encrypt(const string text_cs, const string key_cs)
             }
         }
     }
-    for (auto& it : index_isupper) {
+    for (auto it : index_isupper) {
         encrypted_text[it] = (char)toupper(encrypted_text[it]);
     }
     return encrypted_text;
@@ -724,7 +724,7 @@ string Gronsfeld_Decrypt(const string text_cs, const string key_cs) {
             }
         }
     }
-    for (auto& it : index_isupper) {
+    for (auto it : index_isupper) {
         decrypt_text[it] = (char)toupper(decrypt_text[it]);
     }
     return decrypt_text;
@@ -898,7 +898,7 @@ string Atbash_Encrypt(const string text_cs) {
             encrypted_text += alphabet2[index];
         }
     }
-    for (auto& it : index_isupper) {
+    for (auto it : index_isupper) {
         encrypted_text[it] = (char)toupper(encrypted_text[it]);
     }
     return encrypted_text;
@@ -940,7 +940,7 @@ string Atbash_Decrypt(const string text_cs) {
             decrypt_text += alphabet2[index];
         }
     }
-    for (auto& it : index_isupper) {
+    for (auto it : index_isupper) {
         decrypt_text[it] = (char)toupper(decrypt_text[it]);
     }
     return decrypt_text;
