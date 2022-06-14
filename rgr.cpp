@@ -18,7 +18,6 @@ int main()
     int user_choice_int = -1;
     bool error_flag = false;
     bool error_flag2 = true;
-    fin.open(file_name_in);
 
     string fast_check;
     cout << "Быстрая проверка?(1 - да, 0 - нет):";
@@ -198,7 +197,7 @@ OMT:
                 cout << "Символы пароля должны быть цифрами." << endl;
                 continue;
             }
-            if (stoi(user_pswd) == password)
+            if (stoi(user_pswd) == password && user_pswd.size() == 4)
             {
                 user_pswd = "-1";
                 while (true)
@@ -230,7 +229,7 @@ OMT:
                         //cout << "Введите исходное сообщение:";
                         bool ChoiseToLeave = false;
                         int attempt = 0;
-                        while (stoi(user_pswd) != password)
+                        while (true)
                         {
                             if (attempt == 3)
                             {
@@ -256,9 +255,17 @@ OMT:
                                 attempt++;
                                 continue;
                             }
-                            if (stoi(user_pswd) != password)
+                            if (stoi(user_pswd) != password && user_pswd.size() == 4)
                             {
                                 cout << "Неверный пароль." << endl;
+                            }
+                            else if (user_pswd.size() != 4)
+                            {
+                                cout << "Неверный пароль." << endl;
+                            }
+                            else
+                            {
+                                break;
                             }
                             attempt++;
                         }
@@ -380,7 +387,7 @@ OMT:
                         fin.open(file_name_in);
                         bool ChoiseToLeave = false;
                         int attempt = 0;
-                        while (stoi(user_pswd) != password)
+                        while (true)
                         {
                             if (attempt == 3)
                             {
@@ -406,9 +413,17 @@ OMT:
                                 attempt++;
                                 continue;
                             }
-                            if (stoi(user_pswd) != password)
+                            if (stoi(user_pswd) != password && user_pswd.size() == 4)
                             {
                                 cout << "Неверный пароль." << endl;
+                            }
+                            else if (user_pswd.size() != 4)
+                            {
+                                cout << "Неверный пароль." << endl;
+                            }
+                            else
+                            {
+                                break;
                             }
                             attempt++;
                         }
@@ -527,7 +542,7 @@ OMT:
                         cout << endl << "Пример: \"paparimskiy\", ключ: \"2341312\" (сначала меняем столбцы, их 4, по паттерну 2341, затем строки по паттерну 312, их 3) " << endl << endl;
                         bool ChoiseToLeave = false;
                         int attempt = 0;
-                        while (stoi(user_pswd) != password)
+                        while (true)
                         {
                             if (attempt == 3)
                             {
@@ -553,9 +568,17 @@ OMT:
                                 attempt++;
                                 continue;
                             }
-                            if (stoi(user_pswd) != password)
+                            if (stoi(user_pswd) != password && user_pswd.size() == 4)
                             {
                                 cout << "Неверный пароль." << endl;
+                            }
+                            else if (user_pswd.size() != 4)
+                            {
+                                cout << "Неверный пароль." << endl;
+                            }
+                            else
+                            {
+                                break;
                             }
                             attempt++;
                         }
@@ -670,9 +693,14 @@ OMT:
                         fin.close();
                         fin.open(file_name_in);
                         bool ChoiseToLeave = false;
-                        while (stoi(user_pswd) != password)
+                        int attempt = 0;
+                        while (true)
                         {
-                            cout << "Если вы не хотите использовать это шифрование, напишите \"E_X_I_T\"" << endl;
+                            if (attempt == 3)
+                            {
+                                cout << "Если вы не хотите использовать это шифрование, напишите \"E_X_I_T\"" << endl;
+                                attempt = 0;
+                            }
                             cout << "Введите пароль:";
                             getline(cin, user_pswd);
                             if (user_pswd == "E_X_I_T")
@@ -689,12 +717,22 @@ OMT:
                             {
                                 cout << "Символы пароля должны быть цифрами." << endl;
                                 user_pswd = "-1";
+                                attempt++;
                                 continue;
                             }
-                            if (stoi(user_pswd) != password)
+                            if (stoi(user_pswd) != password && user_pswd.size() == 4)
                             {
                                 cout << "Неверный пароль." << endl;
                             }
+                            else if (user_pswd.size() != 4)
+                            {
+                                cout << "Неверный пароль." << endl;
+                            }
+                            else
+                            {
+                                break;
+                            }
+                            attempt++;
                         }
                         if (ChoiseToLeave) break;
                         string to_do;
@@ -813,9 +851,14 @@ OMT:
                         fin.close();
                         fin.open(file_name_in);
                         bool ChoiseToLeave = false;
-                        while (stoi(user_pswd) != password)
+                        int attempt = 0;
+                        while (true)
                         {
-                            cout << "Если вы не хотите использовать это шифрование, напишите \"E_X_I_T\"" << endl;
+                            if (attempt == 3)
+                            {
+                                cout << "Если вы не хотите использовать это шифрование, напишите \"E_X_I_T\"" << endl;
+                                attempt = 0;
+                            }
                             cout << "Введите пароль:";
                             getline(cin, user_pswd);
                             if (user_pswd == "E_X_I_T")
@@ -832,12 +875,22 @@ OMT:
                             {
                                 cout << "Символы пароля должны быть цифрами." << endl;
                                 user_pswd = "-1";
+                                attempt++;
                                 continue;
                             }
-                            if (stoi(user_pswd) != password)
+                            if (stoi(user_pswd) != password && user_pswd.size() == 4)
                             {
                                 cout << "Неверный пароль." << endl;
                             }
+                            else if (user_pswd.size() != 4)
+                            {
+                                cout << "Неверный пароль." << endl;
+                            }
+                            else
+                            {
+                                break;
+                            }
+                            attempt++;
                         }
                         if (ChoiseToLeave) break;
                         string to_do;
@@ -996,9 +1049,13 @@ OMT:
                         fin.open(file_name_in);
                         bool ChoiseToLeave = false;
                         int attempt = 0;
-                        while (stoi(user_pswd) != password)
+                        while (true)
                         {
-                            cout << "Если вы не хотите использовать это шифрование, напишите \"E_X_I_T\"" << endl;
+                            if (attempt == 3)
+                            {
+                                cout << "Если вы не хотите использовать это шифрование, напишите \"E_X_I_T\"" << endl;
+                                attempt = 0;
+                            }
                             cout << "Введите пароль:";
                             getline(cin, user_pswd);
                             if (user_pswd == "E_X_I_T")
@@ -1015,12 +1072,22 @@ OMT:
                             {
                                 cout << "Символы пароля должны быть цифрами." << endl;
                                 user_pswd = "-1";
+                                attempt++;
                                 continue;
                             }
-                            if (stoi(user_pswd) != password)
+                            if (stoi(user_pswd) != password && user_pswd.size() == 4)
                             {
                                 cout << "Неверный пароль." << endl;
                             }
+                            else if (user_pswd.size() != 4)
+                            {
+                                cout << "Неверный пароль." << endl;
+                            }
+                            else
+                            {
+                                break;
+                            }
+                            attempt++;
                         }
                         user_pswd = "-1";
                         if (ChoiseToLeave) break;
